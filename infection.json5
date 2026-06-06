@@ -1,0 +1,113 @@
+{
+    $schema: "./vendor/infection/infection/resources/schema.json",
+    source: {
+        directories: [
+            "src"
+        ]
+    },
+    logs: {
+        summary: "build/infection-summary.log",
+        text: "build/infection.log"
+    },
+    phpUnit: {
+        configDir: ".",
+        customPath: "vendor/bin/phpunit"
+    },
+    timeout: 15,
+    mutators: {
+        "@default": true,
+        CastInt: {
+            ignore: [
+                "SineMacula\\Foundation\\Normalizers\\Types\\FinancialAmount::normalize"
+            ]
+        },
+        CastString: {
+            ignore: [
+                "SineMacula\\Foundation\\Normalizers\\Types\\AddressLine::normalize",
+                "SineMacula\\Foundation\\Normalizers\\Traits\\LoadsJsonResources::loadJson"
+            ]
+        },
+        ConcatOperandRemoval: {
+            ignore: [
+                "SineMacula\\Foundation\\Normalizers\\Types\\Date::parseUsingSupportedFormats"
+            ]
+        },
+        Continue_: {
+            ignore: [
+                "SineMacula\\Foundation\\Normalizers\\Types\\Date::parseUsingSupportedFormats"
+            ]
+        },
+        DecrementInteger: {
+            ignore: [
+                "SineMacula\\Foundation\\Normalizers\\Types\\Country::findCountryByFuzzyMatch"
+            ]
+        },
+        Foreach_: {
+            ignore: [
+                "SineMacula\\Foundation\\Normalizers\\Types\\Country::findCountryByName"
+            ]
+        },
+        GreaterThan: {
+            ignore: [
+                "SineMacula\\Foundation\\Normalizers\\Types\\Date::parseUsingSupportedFormats"
+            ]
+        },
+        GreaterThanNegotiation: {
+            ignore: [
+                "SineMacula\\Foundation\\Normalizers\\Types\\Date::parseUsingSupportedFormats"
+            ]
+        },
+        IncrementInteger: {
+            ignore: [
+                "SineMacula\\Foundation\\Normalizers\\Types\\Country::findCountryByFuzzyMatch"
+            ]
+        },
+        LogicalAnd: {
+            ignore: [
+                "SineMacula\\Foundation\\Normalizers\\Types\\Date::parseUsingSupportedFormats"
+            ]
+        },
+        LogicalOr: {
+            ignore: [
+                "SineMacula\\Foundation\\Normalizers\\Types\\Country::findCountryByFuzzyMatch"
+            ]
+        },
+        LogicalOrAllSubExprNegation: {
+            ignore: [
+                "SineMacula\\Foundation\\Normalizers\\Types\\Date::parseUsingSupportedFormats"
+            ]
+        },
+        NotIdentical: {
+            ignore: [
+                "SineMacula\\Foundation\\Normalizers\\Types\\Date::parseUsingSupportedFormats"
+            ]
+        },
+        ReturnRemoval: {
+            ignore: [
+                "SineMacula\\Foundation\\Normalizers\\Types\\AddressLine::normalize",
+                "SineMacula\\Foundation\\Normalizers\\Types\\Country::normalize",
+                "SineMacula\\Foundation\\Normalizers\\Types\\Country::findCountryByName",
+                "SineMacula\\Foundation\\Normalizers\\Types\\Country::findCountryByFuzzyMatch",
+                "SineMacula\\Foundation\\Normalizers\\Types\\Currency::normalize",
+                "SineMacula\\Foundation\\Normalizers\\Types\\Ssn::normalize",
+                "SineMacula\\Foundation\\Normalizers\\Types\\Timezone::normalize"
+            ]
+        },
+        UnwrapStrReplace: {
+            ignore: [
+                "SineMacula\\Foundation\\Normalizers\\Types\\Country::findCountryByFuzzyMatch"
+            ]
+        },
+        UnwrapStrToLower: {
+            ignore: [
+                "SineMacula\\Foundation\\Normalizers\\Types\\Name::applyPrefixCapitalization",
+                "SineMacula\\Foundation\\Normalizers\\Types\\Name::capitalizeName"
+            ]
+        },
+        UnwrapStrToUpper: {
+            ignore: [
+                "SineMacula\\Foundation\\Normalizers\\Types\\Phone::normalize"
+            ]
+        }
+    }
+}
