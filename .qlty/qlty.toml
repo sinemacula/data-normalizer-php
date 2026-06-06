@@ -32,8 +32,12 @@ test_patterns = [
     "**/spec_*.*",
 ]
 
+# Runtime that executes the PHP linters (php-cs-fixer, phpstan, php-codesniffer).
+# 8.4 is required because php-cs-fixer's bundled symfony/console now needs
+# >=8.4.1; this is the tool runtime only and does not change the supported PHP
+# range (the library still targets ^8.3 — see composer.json and the CI matrix).
 [runtimes.enabled]
-php = "8.3"
+php = "8.4"
 
 [smells]
 mode = "comment"
