@@ -23,7 +23,6 @@ use SineMacula\Foundation\Normalizers\Exceptions\InvalidNormalizerException;
  * @method static string|null companyName(string $value)
  * @method static string|null jobTitle(string $value)
  * @method static string|null currency(string $value)
- * @method static int|null financialAmount(int|float|string $value)
  * @method static string|null ssn(string $value)
  *
  * @author      Ben Carey <bdmc@sinemacula.co.uk>

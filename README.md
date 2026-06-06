@@ -26,11 +26,8 @@ A few rules hold across the surface:
 
 - **Null means "could not normalize."** Every normalizer returns `null` for input it cannot produce a meaningful value
   from (non-strings, empty values, unparseable input) rather than throwing.
-- **Canonical output.** Each normalizer maps varied input to a single canonical form, so the same value normalizes the
-  same way everywhere it is called.
-- **Idempotent — with one exception.** Re-normalizing a normalizer's own output returns it unchanged, *except*
-  `financialAmount`, which converts a major-unit amount to integer minor units (multiplies by 100). It must be applied
-  once to raw input, never to its own result.
+- **Canonical, idempotent output.** Each normalizer maps varied input to a single canonical form; re-normalizing an
+  already-normalized value returns it unchanged.
 
 ## Supported Normalizers
 
@@ -49,7 +46,6 @@ A few rules hold across the surface:
 | `companyName`        | `Normalizer::companyName($value)`                   | Normalizes legal suffixes (`Inc`, `LLC`, `Ltd`, `GmbH`, `SARL`)                                                                                    |
 | `jobTitle`           | `Normalizer::jobTitle($value)`                      | Title-cases titles while preserving acronyms (`CEO`, `IT`, `R&D`) and lowercasing stop words                                                       |
 | `currency`           | `Normalizer::currency($value)`                      | Validates and uppercases to an ISO 4217 currency code                                                                                              |
-| `financialAmount`    | `Normalizer::financialAmount($value)`               | Converts a numeric amount to integer minor units (multiplies by 100)                                                                               |
 | `ssn`                | `Normalizer::ssn($value)`                           | Strips to digits; preserves already-redacted values such as `***123`                                                                               |
 
 ## Installation
@@ -67,7 +63,7 @@ Normalizer::name('SMITH, john');                // 'John Smith'
 Normalizer::email(' John.Smith@Example.COM ');  // 'john.smith@example.com'
 Normalizer::phone('(650) 253-0000');            // '+16502530000'
 Normalizer::country('Untied States');           // 'US'  (fuzzy match)
-Normalizer::financialAmount('19.99');           // 1999
+Normalizer::postalCode('sw1a1aa', 'GB');        // 'SW1A 1AA'
 
 Normalizer::clean('  not   a  phone  ');        // 'not a phone'
 Normalizer::phone('not a phone');               // null

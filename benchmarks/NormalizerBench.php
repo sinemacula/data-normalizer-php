@@ -187,19 +187,6 @@ final class NormalizerBench
     }
 
     /**
-     * Benchmark financial amount normalization.
-     *
-     * @return void
-     */
-    #[Bench\Iterations(5)]
-    #[Bench\Revs(1000)]
-    #[Bench\Warmup(2)]
-    public function benchFinancialAmount(): void
-    {
-        Normalizer::financialAmount(1050);
-    }
-
-    /**
      * Benchmark SSN normalization.
      *
      * @return void

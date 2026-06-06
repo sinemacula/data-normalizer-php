@@ -16,11 +16,6 @@
     timeout: 15,
     mutators: {
         "@default": true,
-        CastInt: {
-            ignore: [
-                "SineMacula\\Foundation\\Normalizers\\Types\\FinancialAmount::normalize"
-            ]
-        },
         CastString: {
             ignore: [
                 "SineMacula\\Foundation\\Normalizers\\Types\\AddressLine::normalize",
