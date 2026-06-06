@@ -14,9 +14,10 @@ deterministic normalization of common data types.
 
 - `Normalizer` static facade routing calls to single-purpose normalizers through the `NormalizerInterface`
   contract, with memoised name resolution.
-- Fifteen built-in normalizers: `clean`, `name`, `email`, `phone`, `date`, `timezone`, `addressLine`,
-  `postalCode`, `country`, `administrativeArea`, `companyName`, `jobTitle`, `currency`, `financialAmount`,
-  and `ssn`.
+- Fourteen built-in normalizers: `clean`, `name`, `email`, `phone`, `date`, `timezone`, `addressLine`,
+  `postalCode`, `country`, `administrativeArea`, `companyName`, `jobTitle`, `currency`, and `ssn`.
+  Country-aware normalizers (`phone`, `postalCode`, `administrativeArea`) accept a country/region context;
+  `postalCode` validates and formats per country via `brick/postcode`.
 - Registry-backed extensibility: `Normalizer::register()` lets consuming applications add or override
   normalizers without forking; registered normalizers take precedence over the built-ins.
 - Eager registration validation via `InvalidNormalizerException`, and `Normalizer::flush()` for test isolation.
