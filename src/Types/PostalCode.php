@@ -34,10 +34,18 @@ class PostalCode implements NormalizerInterface
 
         $country = Normalizer::country($context);
 
-        if ($country === null) {
-            return strtoupper($value);
-        }
+        return $country === null ? strtoupper($value) : self::formatForCountry($country, $value);
+    }
 
+    /**
+     * Format the value against the given country's postal code rules.
+     *
+     * @param  string  $country
+     * @param  string  $value
+     * @return string|null
+     */
+    private static function formatForCountry(string $country, string $value): ?string
+    {
         try {
             return (new PostcodeFormatter)->format($country, $value);
         } catch (InvalidPostcodeException) {
