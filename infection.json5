@@ -86,6 +86,7 @@
             ignore: [
                 "SineMacula\\Foundation\\Normalizers\\Types\\AddressLine::normalize",
                 "SineMacula\\Foundation\\Normalizers\\Types\\Country::normalize",
+                "SineMacula\\Foundation\\Normalizers\\Types\\Country::resolveCountryCode",
                 "SineMacula\\Foundation\\Normalizers\\Types\\Country::findCountryByName",
                 "SineMacula\\Foundation\\Normalizers\\Types\\Country::findCountryByFuzzyMatch",
                 "SineMacula\\Foundation\\Normalizers\\Types\\Currency::normalize",

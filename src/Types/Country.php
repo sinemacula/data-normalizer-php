@@ -37,7 +37,17 @@ class Country implements NormalizerInterface
             return null;
         }
 
-        $value     = strtoupper($value);
+        return self::resolveCountryCode(strtoupper($value));
+    }
+
+    /**
+     * Resolve the given value to a country code.
+     *
+     * @param  string  $value
+     * @return ?string
+     */
+    private static function resolveCountryCode(string $value): ?string
+    {
         $countries = (new CountryRepository)->getList();
 
         if (self::isExactCountryCode($value, $countries)) {

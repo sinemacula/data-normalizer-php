@@ -79,10 +79,6 @@ class JobTitle implements NormalizerInterface
             return $acronyms[$acronymKey];
         }
 
-        if (in_array($part, $stopWords, true)) {
-            return $part;
-        }
-
-        return ucfirst($part);
+        return in_array($part, $stopWords, true) ? $part : ucfirst($part);
     }
 }
