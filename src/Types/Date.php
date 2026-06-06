@@ -3,6 +3,7 @@
 namespace SineMacula\Foundation\Normalizers\Types;
 
 use SineMacula\Foundation\Normalizers\Contracts\NormalizerInterface;
+use SineMacula\Foundation\Normalizers\Normalizer;
 
 /**
  * The date normalizer.
@@ -44,7 +45,7 @@ class Date implements NormalizerInterface
     #[\Override]
     public static function normalize(mixed $value, mixed $context = null): ?string
     {
-        $value = Clean::normalize($value);
+        $value = Normalizer::clean($value);
 
         if ($value === null) {
             return null;

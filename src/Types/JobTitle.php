@@ -23,6 +23,9 @@ class JobTitle implements NormalizerInterface
      * @param  mixed  $value
      * @param  mixed|null  $context
      * @return string|null
+     *
+     * @throws \SineMacula\Foundation\Normalizers\Exceptions\InvalidResourceFileException
+     * @throws \SineMacula\Foundation\Normalizers\Exceptions\ResourceFileNotFoundException
      */
     #[\Override]
     public static function normalize(mixed $value, mixed $context = null): ?string

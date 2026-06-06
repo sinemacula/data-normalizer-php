@@ -19,6 +19,9 @@ class ExtendedJobTitle extends JobTitle
      * Expose the acronyms provider.
      *
      * @return array<int, string>
+     *
+     * @throws \SineMacula\Foundation\Normalizers\Exceptions\InvalidResourceFileException
+     * @throws \SineMacula\Foundation\Normalizers\Exceptions\ResourceFileNotFoundException
      */
     public static function getExposedAcronyms(): array
     {
@@ -29,6 +32,9 @@ class ExtendedJobTitle extends JobTitle
      * Expose the stop words provider.
      *
      * @return array<int, string>
+     *
+     * @throws \SineMacula\Foundation\Normalizers\Exceptions\InvalidResourceFileException
+     * @throws \SineMacula\Foundation\Normalizers\Exceptions\ResourceFileNotFoundException
      */
     public static function getExposedStopWords(): array
     {

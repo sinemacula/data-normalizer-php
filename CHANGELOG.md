@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres
 to [Semantic Versioning](https://semver.org/).
 
-## [1.0.0] - Unreleased
+## [1.0.0] - 2026-06-06
 
 Initial public release of `sinemacula/data-normalizer-php` — a framework-agnostic library for consistent,
 deterministic normalization of common data types.
@@ -29,9 +29,10 @@ deterministic normalization of common data types.
 
 ### Security
 
-- `#[\SensitiveParameter]` on the raw-value parameters that carry PII (`Ssn`, `Clean`, and the facade
-  dispatch) so unredacted values do not surface in stack traces.
-- Resource-file loading rejects path-traversal sequences before touching the filesystem.
+- `#[\SensitiveParameter]` on every raw-value parameter that can carry PII — the facade dispatch plus each
+  PII normalizer (`Name`, `Email`, `Phone`, `AddressLine`, `PostalCode`, `AdministrativeArea`, `Ssn`, and
+  `Clean`) — so unredacted values do not surface in stack traces.
+- Resource-file loading validates filenames against a strict allowlist before touching the filesystem.
 
 ### Changed
 

@@ -47,7 +47,7 @@ class Name implements NormalizerInterface
      * @return string|null
      */
     #[\Override]
-    public static function normalize(mixed $value, mixed $context = null): ?string
+    public static function normalize(#[\SensitiveParameter] mixed $value, mixed $context = null): ?string
     {
         $value = Normalizer::clean($value);
 

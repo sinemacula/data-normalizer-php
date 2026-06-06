@@ -24,8 +24,8 @@ trait LoadsJsonResources
      */
     private static function loadJson(string $filename): array
     {
-        if (str_contains($filename, '/') || str_contains($filename, '\\') || str_contains($filename, '..')) {
-            throw new InvalidResourceFileException("File {$filename}.json is outside the resources directory.");
+        if (preg_match('/^[A-Za-z0-9_-]+$/', $filename) !== 1) {
+            throw new InvalidResourceFileException("File {$filename}.json is not a valid resource file name.");
         }
 
         $path = __DIR__ . '/../../resources/' . $filename . '.json';

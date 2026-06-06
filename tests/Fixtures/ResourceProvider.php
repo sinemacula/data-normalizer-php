@@ -21,7 +21,7 @@ class ResourceProvider
      * Load the given resource file.
      *
      * @param  string  $filename
-     * @return array<array-key, mixed>
+     * @return array<int, string>
      *
      * @throws \SineMacula\Foundation\Normalizers\Exceptions\InvalidResourceFileException
      * @throws \SineMacula\Foundation\Normalizers\Exceptions\ResourceFileNotFoundException
