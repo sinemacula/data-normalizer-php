@@ -3,7 +3,6 @@
 namespace SineMacula\Foundation\Normalizers\Types;
 
 use CommerceGuys\Addressing\Country\CountryRepository;
-use FuzzyWuzzy\Process;
 use SineMacula\Foundation\Normalizers\Contracts\NormalizerInterface;
 use SineMacula\Foundation\Normalizers\Normalizer;
 
@@ -106,15 +105,19 @@ class Country implements NormalizerInterface
             return null;
         }
 
-        $fuzzy = new Process;
-        $match = $fuzzy->extractOne($value, $countries, null, null, self::MINIMUM_FUZZY_MATCH_SCORE);
+        $bestCode  = null;
+        $bestScore = 0.0;
 
-        if (!isset($match[0]) || !is_string($match[0])) {
-            return null;
+        foreach ($countries as $code => $name) {
+
+            similar_text($value, strtoupper($name), $score);
+
+            if ($score > $bestScore) {
+                $bestScore = $score;
+                $bestCode  = $code;
+            }
         }
 
-        $countryCode = array_search($match[0], $countries, true);
-
-        return is_string($countryCode) ? $countryCode : null;
+        return $bestScore >= self::MINIMUM_FUZZY_MATCH_SCORE ? $bestCode : null;
     }
 }

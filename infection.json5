@@ -32,11 +32,6 @@
                 "SineMacula\\Foundation\\Normalizers\\Types\\Date::parseUsingSupportedFormats"
             ]
         },
-        DecrementInteger: {
-            ignore: [
-                "SineMacula\\Foundation\\Normalizers\\Types\\Country::findCountryByFuzzyMatch"
-            ]
-        },
         Foreach_: {
             ignore: [
                 "SineMacula\\Foundation\\Normalizers\\Types\\Country::findCountryByName"
@@ -44,6 +39,7 @@
         },
         GreaterThan: {
             ignore: [
+                "SineMacula\\Foundation\\Normalizers\\Types\\Country::findCountryByFuzzyMatch",
                 "SineMacula\\Foundation\\Normalizers\\Types\\Date::parseUsingSupportedFormats"
             ]
         },
@@ -52,7 +48,7 @@
                 "SineMacula\\Foundation\\Normalizers\\Types\\Date::parseUsingSupportedFormats"
             ]
         },
-        IncrementInteger: {
+        GreaterThanOrEqualTo: {
             ignore: [
                 "SineMacula\\Foundation\\Normalizers\\Types\\Country::findCountryByFuzzyMatch"
             ]
@@ -60,11 +56,6 @@
         LogicalAnd: {
             ignore: [
                 "SineMacula\\Foundation\\Normalizers\\Types\\Date::parseUsingSupportedFormats"
-            ]
-        },
-        LogicalOr: {
-            ignore: [
-                "SineMacula\\Foundation\\Normalizers\\Types\\Country::findCountryByFuzzyMatch"
             ]
         },
         LogicalOrAllSubExprNegation: {
@@ -75,6 +66,11 @@
         NotIdentical: {
             ignore: [
                 "SineMacula\\Foundation\\Normalizers\\Types\\Date::parseUsingSupportedFormats"
+            ]
+        },
+        OneZeroFloat: {
+            ignore: [
+                "SineMacula\\Foundation\\Normalizers\\Types\\Country::findCountryByFuzzyMatch"
             ]
         },
         ReturnRemoval: {
