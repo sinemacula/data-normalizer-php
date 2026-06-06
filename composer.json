@@ -16,6 +16,7 @@
     ],
     "require": {
         "php": "^8.3",
+        "brick/postcode": "^0.6",
         "commerceguys/addressing": "^2.2",
         "giggsey/libphonenumber-for-php": "^9.0",
         "symfony/intl": "^7.4|^8.0",

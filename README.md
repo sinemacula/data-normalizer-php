@@ -22,11 +22,15 @@ Calls are routed by name: `Normalizer::email($value)` resolves to the `Email` no
 `normalize()` method, and returns the result. Resolution is memoised, so the lookup cost is paid once per name per
 process.
 
-Two rules hold across the whole surface:
+A few rules hold across the surface:
 
 - **Null means "could not normalize."** Every normalizer returns `null` for input it cannot produce a meaningful value
   from (non-strings, empty values, unparseable input) rather than throwing.
-- **Output is canonical and idempotent.** Normalizing an already-normalized value returns it unchanged.
+- **Canonical output.** Each normalizer maps varied input to a single canonical form, so the same value normalizes the
+  same way everywhere it is called.
+- **Idempotent — with one exception.** Re-normalizing a normalizer's own output returns it unchanged, *except*
+  `financialAmount`, which converts a major-unit amount to integer minor units (multiplies by 100). It must be applied
+  once to raw input, never to its own result.
 
 ## Supported Normalizers
 
@@ -39,7 +43,7 @@ Two rules hold across the whole surface:
 | `date`               | `Normalizer::date($value)`                          | Parses a set of known formats to `Y-m-d`; returns `null` for invalid calendar dates                                                                |
 | `timezone`           | `Normalizer::timezone($value)`                      | Resolves to a canonical IANA timezone identifier (case-insensitive)                                                                                |
 | `addressLine`        | `Normalizer::addressLine($value)`                   | Title-cases the line and strips trailing commas                                                                                                    |
-| `postalCode`         | `Normalizer::postalCode($value)`                    | Uppercases and trims                                                                                                                               |
+| `postalCode`         | `Normalizer::postalCode($value, ?$country)`         | Validates and formats to the country's canonical form (UK/Canada spacing, US ZIP+4 hyphen); without a country, uppercases and trims                |
 | `country`            | `Normalizer::country($value)`                       | Resolves a country name or code to its ISO 3166-1 alpha-2 code, with fuzzy matching for near-misses                                                |
 | `administrativeArea` | `Normalizer::administrativeArea($value, ?$country)` | Resolves a state / province / region name or code to its subdivision code (defaults to the `US` country)                                           |
 | `companyName`        | `Normalizer::companyName($value)`                   | Normalizes legal suffixes (`Inc`, `LLC`, `Ltd`, `GmbH`, `SARL`)                                                                                    |

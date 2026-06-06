@@ -2,6 +2,9 @@
 
 namespace SineMacula\Foundation\Normalizers\Types;
 
+use Brick\Postcode\Exception\InvalidPostcodeException;
+use Brick\Postcode\Exception\UnknownCountryException;
+use Brick\Postcode\PostcodeFormatter;
 use SineMacula\Foundation\Normalizers\Contracts\NormalizerInterface;
 use SineMacula\Foundation\Normalizers\Normalizer;
 
@@ -25,6 +28,22 @@ class PostalCode implements NormalizerInterface
     {
         $value = Normalizer::clean($value);
 
-        return $value ? strtoupper($value) : null;
+        if ($value === null) {
+            return null;
+        }
+
+        $country = Normalizer::country($context);
+
+        if ($country === null) {
+            return strtoupper($value);
+        }
+
+        try {
+            return (new PostcodeFormatter)->format($country, $value);
+        } catch (InvalidPostcodeException) {
+            return null;
+        } catch (UnknownCountryException) {
+            return strtoupper($value);
+        }
     }
 }

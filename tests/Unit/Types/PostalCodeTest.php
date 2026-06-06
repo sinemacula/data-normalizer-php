@@ -16,9 +16,6 @@ use SineMacula\Foundation\Normalizers\Types\PostalCode;
 #[CoversClass(PostalCode::class)]
 class PostalCodeTest extends TypeTestCase
 {
-    /** @var string The canonical ZIP value used in baseline examples. */
-    private const string STANDARD_ZIP = '12345';
-
     /**
      * Data provider for test cases.
      *
@@ -27,15 +24,22 @@ class PostalCodeTest extends TypeTestCase
     public static function dataProvider(): array
     {
         return [
-            'standard zip remains unchanged'             => [self::STANDARD_ZIP, self::STANDARD_ZIP],
-            'zip plus four remains unchanged'            => ['12345-6789', '12345-6789'],
-            'lowercase alphanumeric code is uppercased'  => ['sw1a 1aa', 'SW1A 1AA'],
-            'mixed case alphanumeric code is uppercased' => ['Sw1A 1aA', 'SW1A 1AA'],
-            'postal code with spaces is trimmed'         => ['  12345  ', self::STANDARD_ZIP],
-            'alphanumeric zip remains uppercased'        => ['12ab5', '12AB5'],
-            'empty string returns null'                  => ['', null],
-            'spaces only returns null'                   => ['   ', null],
-            'null input returns null'                    => [null, null],
+            // No country — cleanup only (uppercase, trim, collapse), no validation.
+            'no country uppercases value'         => ['sw1a 1aa', 'SW1A 1AA'],
+            'no country trims surrounding spaces' => ['  12345  ', '12345'],
+            'empty string returns null'           => ['', null],
+            'spaces only returns null'            => ['   ', null],
+            'null input returns null'             => [null, null],
+            'non-string returns null'             => [12345, null],
+            // Country supplied — validated and formatted via brick/postcode.
+            'us five digit zip is valid'                => ['33602', '33602', 'US'],
+            'us zip plus four is hyphenated'            => ['337014313', '33701-4313', 'US'],
+            'lowercase country code is resolved'        => ['33602', '33602', 'us'],
+            'gb postcode gains canonical space'         => ['sw1a1aa', 'SW1A 1AA', 'GB'],
+            'ca postcode gains canonical space'         => ['k1a0b1', 'K1A 0B1', 'CA'],
+            'nl postcode gains canonical space'         => ['1234ab', '1234 AB', 'NL'],
+            'invalid postcode for country returns null' => ['3360', null, 'US'],
+            'country without postcode system cleans up' => ['abc 123', 'ABC 123', 'HK'],
         ];
     }
 
