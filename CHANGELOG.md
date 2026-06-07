@@ -42,4 +42,4 @@ deterministic normalization of common data types.
 
 - Pre-1.0 package; no prior fixes to enumerate.
 
-[1.0.0]: https://github.com/sinemacula/data-normalizer-php/releases/tag/1.0.0
+[1.0.0]: https://github.com/sinemacula/data-normalizer-php/releases/tag/v1.0.0
