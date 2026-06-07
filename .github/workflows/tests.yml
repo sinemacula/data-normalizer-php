@@ -58,7 +58,6 @@ jobs:
                 uses: sinemacula/.github/.github/actions/setup-php@v1.1.1
                 with:
                     php-version: ${{ matrix.php }}
-                    extensions: dom, mbstring
 
             -   name: PHPUnit
                 run: composer test:coverage
