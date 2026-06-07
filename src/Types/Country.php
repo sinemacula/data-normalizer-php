@@ -17,7 +17,7 @@ class Country implements NormalizerInterface
     /** @var int The minimum length required for fuzzy matching. */
     private const int MINIMUM_FUZZY_INPUT_LENGTH = 3;
 
-    /** @var int The minimum score required for a fuzzy match. */
+    /** @var int Minimum similar_text() percentage (0-100) for a match. */
     private const int MINIMUM_FUZZY_MATCH_SCORE = 70;
 
     /**
@@ -105,19 +105,19 @@ class Country implements NormalizerInterface
             return null;
         }
 
-        $bestCode  = null;
-        $bestScore = 0.0;
+        $bestCode    = null;
+        $bestPercent = 0.0;
 
         foreach ($countries as $code => $name) {
 
-            similar_text($value, strtoupper($name), $score);
+            similar_text($value, strtoupper($name), $percent);
 
-            if ($score > $bestScore) {
-                $bestScore = $score;
-                $bestCode  = $code;
+            if ($percent > $bestPercent) {
+                $bestPercent = $percent;
+                $bestCode    = $code;
             }
         }
 
-        return $bestScore >= self::MINIMUM_FUZZY_MATCH_SCORE ? $bestCode : null;
+        return $bestPercent >= self::MINIMUM_FUZZY_MATCH_SCORE ? $bestCode : null;
     }
 }
