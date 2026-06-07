@@ -1,0 +1,123 @@
+<?php
+
+namespace SineMacula\Foundation\Normalizers\Types;
+
+use CommerceGuys\Addressing\Country\CountryRepository;
+use SineMacula\Foundation\Normalizers\Contracts\NormalizerInterface;
+use SineMacula\Foundation\Normalizers\Normalizer;
+
+/**
+ * The country normalizer.
+ *
+ * @author      Ben Carey <bdmc@sinemacula.co.uk>
+ * @copyright   2026 Sine Macula Limited
+ */
+class Country implements NormalizerInterface
+{
+    /** @var int The minimum length required for fuzzy matching. */
+    private const int MINIMUM_FUZZY_INPUT_LENGTH = 3;
+
+    /** @var int Minimum similar_text() percentage (0-100) for a match. */
+    private const int MINIMUM_FUZZY_MATCH_SCORE = 70;
+
+    /**
+     * Normalize the given value.
+     *
+     * @param  mixed  $value
+     * @param  mixed|null  $context
+     * @return string|null
+     */
+    #[\Override]
+    public static function normalize(mixed $value, mixed $context = null): ?string
+    {
+        $value = Normalizer::clean($value);
+
+        if (!$value) {
+            return null;
+        }
+
+        return self::resolveCountryCode(strtoupper($value));
+    }
+
+    /**
+     * Resolve the given value to a country code.
+     *
+     * @param  string  $value
+     * @return ?string
+     */
+    private static function resolveCountryCode(string $value): ?string
+    {
+        $countries = (new CountryRepository)->getList();
+
+        if (self::isExactCountryCode($value, $countries)) {
+            return $value;
+        }
+
+        if ($countryCode = self::findCountryByName($value, $countries)) {
+            return $countryCode;
+        }
+
+        return self::findCountryByFuzzyMatch($value, $countries);
+    }
+
+    /**
+     * Check if the value is an exact country code.
+     *
+     * @param  string  $value
+     * @param  array<string, string>  $countries
+     * @return bool
+     */
+    private static function isExactCountryCode(string $value, array $countries): bool
+    {
+        return isset($countries[$value]);
+    }
+
+    /**
+     * Find the country code by matching the country name.
+     *
+     * @param  string  $value
+     * @param  array<string, string>  $countries
+     * @return ?string
+     */
+    private static function findCountryByName(string $value, array $countries): ?string
+    {
+        foreach ($countries as $code => $name) {
+            if (strcasecmp($value, $name) === 0) {
+                return $code;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Find the country code by fuzzy matching the country name.
+     *
+     * @param  string  $value
+     * @param  array<string, string>  $countries
+     * @return ?string
+     */
+    private static function findCountryByFuzzyMatch(string $value, array $countries): ?string
+    {
+        $inputLength = strlen(str_replace(' ', '', $value));
+
+        if ($inputLength < self::MINIMUM_FUZZY_INPUT_LENGTH) {
+            return null;
+        }
+
+        $bestCode    = null;
+        $bestPercent = 0.0;
+
+        foreach ($countries as $code => $name) {
+
+            similar_text($value, strtoupper($name), $percent);
+
+            if ($percent > $bestPercent) {
+                $bestPercent = $percent;
+                $bestCode    = $code;
+            }
+        }
+
+        return $bestPercent >= self::MINIMUM_FUZZY_MATCH_SCORE ? $bestCode : null;
+    }
+}
