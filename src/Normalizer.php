@@ -17,7 +17,7 @@ use SineMacula\Foundation\Normalizers\Exceptions\InvalidNormalizerException;
  * @method static string|null date(string $value)
  * @method static string|null timezone(string $value)
  * @method static string|null addressLine(string $value)
- * @method static string|null postalCode(string $value)
+ * @method static string|null postalCode(string $value, ?string $country = null)
  * @method static string|null country(string $value)
  * @method static string|null administrativeArea(string $value, ?string $country = null)
  * @method static string|null companyName(string $value)
