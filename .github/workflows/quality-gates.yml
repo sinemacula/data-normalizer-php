@@ -55,7 +55,6 @@ jobs:
                 uses: sinemacula/.github/.github/actions/setup-php@v1.1.1
                 with:
                     php-version: 8.3
-                    extensions: dom, mbstring
 
             -   name: Scoped mutation gate
                 run: composer test:mutation
@@ -79,7 +78,6 @@ jobs:
                 uses: sinemacula/.github/.github/actions/setup-php@v1.1.1
                 with:
                     php-version: 8.3
-                    extensions: dom, mbstring
 
             -   name: Full mutation suite
                 run: composer test:mutation:full
@@ -103,10 +101,11 @@ jobs:
                 uses: sinemacula/.github/.github/actions/setup-php@v1.1.1
                 with:
                     php-version: 8.3
-                    extensions: dom, mbstring
 
             -   name: Run PHPBench suite
-                run: XDEBUG_MODE=off composer bench:ci 2>&1 | tee build/phpbench-console.txt
+                run: |
+                    mkdir -p build
+                    XDEBUG_MODE=off composer bench:ci 2>&1 | tee build/phpbench-console.txt
 
             -   name: Render benchmark summary
                 if: always()
