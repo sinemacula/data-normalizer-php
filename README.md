@@ -32,7 +32,7 @@ A few rules hold across the surface:
 ## Supported Normalizers
 
 | Normalizer           | Call                                                | Result                                                                                                                                             |
-| -------------------- | --------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+|----------------------|-----------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|
 | `clean`              | `Normalizer::clean($value)`                         | Collapses internal whitespace and trims the ends; the building block for the other normalizers                                                     |
 | `name`               | `Normalizer::name($value)`                          | Title-cases personal names; preserves `Mc` / `Mac` / `O'` prefixes, lowercases particles (`van`, `de`, `von`), and flips `Doe, John` to `John Doe` |
 | `email`              | `Normalizer::email($value)`                         | Lowercases and strips spaces                                                                                                                       |
@@ -123,11 +123,16 @@ class Normalizer extends BaseNormalizer {}
 ## Testing
 
 ```bash
-composer test
-composer test:coverage
-composer check
-composer format
-composer smells
+composer test                # PHPUnit suite in parallel via Paratest
+composer test:coverage       # suite with Clover coverage output
+composer test:mutation       # Infection mutation gate (min MSI 90)
+composer test:mutation:full  # full mutation suite without thresholds
+composer check               # static analysis and lint via qlty
+composer format              # format via qlty
+composer smells              # duplication / complexity smells via qlty
+composer bench               # PHPBench suite for the hot paths
+composer bench:ci            # PHPBench with CI artifact dump
+composer bench:smoke         # single-rev pass to verify every subject runs
 ```
 
 ## Changelog
