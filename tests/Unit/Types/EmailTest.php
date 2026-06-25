@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Tests\Unit\Types;
 
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -14,7 +16,7 @@ use SineMacula\Foundation\Normalizers\Types\Email;
  * @internal
  */
 #[CoversClass(Email::class)]
-class EmailTest extends TypeTestCase
+final class EmailTest extends TypeTestCase
 {
     /** @var string The canonical normalized email value. */
     private const string NORMALIZED_EMAIL = 'test@example.com';
@@ -23,7 +25,10 @@ class EmailTest extends TypeTestCase
      * Data provider for test cases.
      *
      * @return array<string, array<int, mixed>>
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint
      */
+    #[\Override]
     public static function dataProvider(): array
     {
         return [
@@ -44,6 +49,7 @@ class EmailTest extends TypeTestCase
      *
      * @return string
      */
+    #[\Override]
     protected function getNormalizerName(): string
     {
         return 'email';

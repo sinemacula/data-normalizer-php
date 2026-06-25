@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Tests\Unit\Types;
 
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -14,13 +16,16 @@ use SineMacula\Foundation\Normalizers\Types\CompanyName;
  * @internal
  */
 #[CoversClass(CompanyName::class)]
-class CompanyNameTest extends TypeTestCase
+final class CompanyNameTest extends TypeTestCase
 {
     /**
      * Data provider for test cases.
      *
      * @return array<string, array<int, mixed>>
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint
      */
+    #[\Override]
     public static function dataProvider(): array
     {
         return [
@@ -43,6 +48,7 @@ class CompanyNameTest extends TypeTestCase
      *
      * @return string
      */
+    #[\Override]
     protected function getNormalizerName(): string
     {
         return 'companyName';

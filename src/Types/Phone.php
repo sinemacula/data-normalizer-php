@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace SineMacula\Foundation\Normalizers\Types;
 
 use libphonenumber\NumberParseException;
@@ -14,7 +16,7 @@ use SineMacula\Foundation\Normalizers\Normalizer;
  * @author      Ben Carey <bdmc@sinemacula.co.uk>
  * @copyright   2026 Sine Macula Limited
  */
-class Phone implements NormalizerInterface
+final class Phone implements NormalizerInterface
 {
     /** @var string The region used when no country context is given. */
     private const string DEFAULT_REGION = 'US';

@@ -1,17 +1,21 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace SineMacula\Foundation\Normalizers\Types;
 
+use SineMacula\Foundation\Normalizers\Concerns\AcronymProvider;
+use SineMacula\Foundation\Normalizers\Concerns\StopWordProvider;
 use SineMacula\Foundation\Normalizers\Contracts\NormalizerInterface;
 use SineMacula\Foundation\Normalizers\Normalizer;
-use SineMacula\Foundation\Normalizers\Traits\AcronymProvider;
-use SineMacula\Foundation\Normalizers\Traits\StopWordProvider;
 
 /**
  * The job title normalizer.
  *
  * @author      Ben Carey <bdmc@sinemacula.co.uk>
  * @copyright   2026 Sine Macula Limited
+ *
+ * @inheritable
  */
 class JobTitle implements NormalizerInterface
 {

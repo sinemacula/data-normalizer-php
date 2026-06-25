@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Tests\Unit\Types;
 
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -14,7 +16,7 @@ use SineMacula\Foundation\Normalizers\Types\Phone;
  * @internal
  */
 #[CoversClass(Phone::class)]
-class PhoneTest extends TypeTestCase
+final class PhoneTest extends TypeTestCase
 {
     /** @var string The canonical normalized US phone value. */
     private const string NORMALIZED_US_PHONE = '+16502530000';
@@ -23,7 +25,10 @@ class PhoneTest extends TypeTestCase
      * Data provider for test cases.
      *
      * @return array<string, array<int, mixed>>
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint
      */
+    #[\Override]
     public static function dataProvider(): array
     {
         return [
@@ -45,6 +50,7 @@ class PhoneTest extends TypeTestCase
      *
      * @return string
      */
+    #[\Override]
     protected function getNormalizerName(): string
     {
         return 'phone';

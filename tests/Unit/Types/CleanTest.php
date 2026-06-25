@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Tests\Unit\Types;
 
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -14,13 +16,16 @@ use SineMacula\Foundation\Normalizers\Types\Clean;
  * @internal
  */
 #[CoversClass(Clean::class)]
-class CleanTest extends TypeTestCase
+final class CleanTest extends TypeTestCase
 {
     /**
      * Data provider for test cases.
      *
      * @return array<string, array<int, mixed>>
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint
      */
+    #[\Override]
     public static function dataProvider(): array
     {
         return [
@@ -46,6 +51,7 @@ class CleanTest extends TypeTestCase
      *
      * @return string
      */
+    #[\Override]
     protected function getNormalizerName(): string
     {
         return 'clean';

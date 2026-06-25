@@ -1,6 +1,8 @@
 <?php
 
-namespace SineMacula\Foundation\Normalizers\Exceptions;
+declare(strict_types = 1);
+
+namespace SineMacula\Foundation\Normalizers\Exceptions\Contracts;
 
 /**
  * Marker contract for all exceptions thrown by the normalizer package.

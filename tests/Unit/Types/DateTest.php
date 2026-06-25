@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Tests\Unit\Types;
 
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -14,7 +16,7 @@ use SineMacula\Foundation\Normalizers\Types\Date;
  * @internal
  */
 #[CoversClass(Date::class)]
-class DateTest extends TypeTestCase
+final class DateTest extends TypeTestCase
 {
     /** @var string The canonical normalized date value. */
     private const string NORMALIZED_DATE = '2024-01-01';
@@ -23,7 +25,10 @@ class DateTest extends TypeTestCase
      * Data provider for test cases.
      *
      * @return array<string, array<int, mixed>>
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint
      */
+    #[\Override]
     public static function dataProvider(): array
     {
         return [
@@ -52,6 +57,7 @@ class DateTest extends TypeTestCase
      *
      * @return string
      */
+    #[\Override]
     protected function getNormalizerName(): string
     {
         return 'date';

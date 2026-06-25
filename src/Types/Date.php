@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace SineMacula\Foundation\Normalizers\Types;
 
 use SineMacula\Foundation\Normalizers\Contracts\NormalizerInterface;
@@ -11,7 +13,7 @@ use SineMacula\Foundation\Normalizers\Normalizer;
  * @author      Ben Carey <bdmc@sinemacula.co.uk>
  * @copyright   2026 Sine Macula Limited
  */
-class Date implements NormalizerInterface
+final class Date implements NormalizerInterface
 {
     /** @var array<int, string> The supported date formats. */
     private const array SUPPORTED_INPUT_FORMATS = [
@@ -70,7 +72,8 @@ class Date implements NormalizerInterface
             return $date;
         }
 
-        // Absolute dates that failed strict parsing are invalid calendar dates; the native parser would roll them over.
+        // Absolute dates that failed strict parsing are invalid calendar dates;
+        // the native parser would roll them over.
         if (self::isAbsoluteDateExpression($value)) {
             return null;
         }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace SineMacula\Foundation\Normalizers\Contracts;
 
 /**
@@ -20,6 +22,8 @@ interface NormalizerInterface
      * @param  mixed  $value
      * @param  mixed|null  $context
      * @return mixed
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint
      */
     public static function normalize(mixed $value, mixed $context = null): mixed;
 }

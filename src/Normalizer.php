@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace SineMacula\Foundation\Normalizers;
 
 use SineMacula\Foundation\Normalizers\Contracts\NormalizerInterface;
@@ -27,8 +29,10 @@ use SineMacula\Foundation\Normalizers\Exceptions\InvalidNormalizerException;
  *
  * @author      Ben Carey <bdmc@sinemacula.co.uk>
  * @copyright   2026 Sine Macula Limited
+ *
+ * @managed-static
  */
-class Normalizer
+final class Normalizer
 {
     /** @var array<string, class-string<\SineMacula\Foundation\Normalizers\Contracts\NormalizerInterface>> */
     private static array $normalizers = [];
@@ -43,6 +47,8 @@ class Normalizer
      * @return mixed
      *
      * @throws \SineMacula\Foundation\Normalizers\Exceptions\InvalidNormalizerException
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint
      */
     public static function __callStatic(string $method, #[\SensitiveParameter] array $arguments): mixed
     {
