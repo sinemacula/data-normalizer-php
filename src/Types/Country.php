@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace SineMacula\Foundation\Normalizers\Types;
 
 use CommerceGuys\Addressing\Country\CountryRepository;
@@ -12,7 +14,7 @@ use SineMacula\Foundation\Normalizers\Normalizer;
  * @author      Ben Carey <bdmc@sinemacula.co.uk>
  * @copyright   2026 Sine Macula Limited
  */
-class Country implements NormalizerInterface
+final class Country implements NormalizerInterface
 {
     /** @var int The minimum length required for fuzzy matching. */
     private const int MINIMUM_FUZZY_INPUT_LENGTH = 3;
@@ -112,10 +114,12 @@ class Country implements NormalizerInterface
 
             similar_text($value, strtoupper($name), $percent);
 
-            if ($percent > $bestPercent) {
-                $bestPercent = $percent;
-                $bestCode    = $code;
+            if ($percent <= $bestPercent) {
+                continue;
             }
+
+            $bestPercent = $percent;
+            $bestCode    = $code;
         }
 
         return $bestPercent >= self::MINIMUM_FUZZY_MATCH_SCORE ? $bestCode : null;

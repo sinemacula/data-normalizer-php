@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Tests\Unit\Traits;
 
 use PHPUnit\Framework\Attributes\CoversTrait;
-use SineMacula\Foundation\Normalizers\Traits\AcronymProvider;
+use SineMacula\Foundation\Normalizers\Concerns\AcronymProvider;
 use SineMacula\Foundation\Normalizers\Types\JobTitle;
 use Tests\Fixtures\ExtendedJobTitle;
 use Tests\Unit\UnitTestCase;
@@ -17,7 +19,7 @@ use Tests\Unit\UnitTestCase;
  * @internal
  */
 #[CoversTrait(AcronymProvider::class)]
-class AcronymProviderTest extends UnitTestCase
+final class AcronymProviderTest extends UnitTestCase
 {
     /**
      * Test that the provider is accessible from subclasses.
@@ -26,7 +28,7 @@ class AcronymProviderTest extends UnitTestCase
      */
     public function testProviderIsAccessibleFromSubclasses(): void
     {
-        static::assertNotEmpty(ExtendedJobTitle::getExposedAcronyms());
+        self::assertNotEmpty(ExtendedJobTitle::getExposedAcronyms());
     }
 
     /**
@@ -47,7 +49,7 @@ class AcronymProviderTest extends UnitTestCase
 
             $acronyms->setValue(null, ['__sentinel__']);
 
-            static::assertSame(['__sentinel__'], ExtendedJobTitle::getExposedAcronyms());
+            self::assertSame(['__sentinel__'], ExtendedJobTitle::getExposedAcronyms());
         } finally {
             $acronyms->setValue(null, $originalAcronyms);
         }

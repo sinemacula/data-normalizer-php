@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Tests\Unit\Traits;
 
 use PHPUnit\Framework\Attributes\CoversTrait;
+use SineMacula\Foundation\Normalizers\Concerns\LoadsJsonResources;
 use SineMacula\Foundation\Normalizers\Exceptions\InvalidResourceFileException;
 use SineMacula\Foundation\Normalizers\Exceptions\ResourceFileNotFoundException;
-use SineMacula\Foundation\Normalizers\Traits\LoadsJsonResources;
 use Tests\Fixtures\ResourceProvider;
 use Tests\Unit\UnitTestCase;
 
@@ -18,7 +20,7 @@ use Tests\Unit\UnitTestCase;
  * @internal
  */
 #[CoversTrait(LoadsJsonResources::class)]
-class LoadsJsonResourcesTest extends UnitTestCase
+final class LoadsJsonResourcesTest extends UnitTestCase
 {
     /**
      * Test that an existing resource file loads.
@@ -27,7 +29,7 @@ class LoadsJsonResourcesTest extends UnitTestCase
      */
     public function testLoadsExistingResourceFile(): void
     {
-        static::assertGreaterThan(1, count(ResourceProvider::load('acronyms')));
+        self::assertGreaterThan(1, count(ResourceProvider::load('acronyms')));
     }
 
     /**

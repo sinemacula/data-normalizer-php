@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Tests\Unit\Types;
 
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -14,24 +16,28 @@ use SineMacula\Foundation\Normalizers\Types\PostalCode;
  * @internal
  */
 #[CoversClass(PostalCode::class)]
-class PostalCodeTest extends TypeTestCase
+final class PostalCodeTest extends TypeTestCase
 {
     /**
      * Data provider for test cases.
      *
      * @return array<string, array<int, mixed>>
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint
      */
+    #[\Override]
     public static function dataProvider(): array
     {
         return [
-            // No country — cleanup only (uppercase, trim, collapse), no validation.
+            // No country - cleanup only (uppercase, trim, collapse), no
+            // validation.
             'no country uppercases value'         => ['sw1a 1aa', 'SW1A 1AA'],
             'no country trims surrounding spaces' => ['  12345  ', '12345'],
             'empty string returns null'           => ['', null],
             'spaces only returns null'            => ['   ', null],
             'null input returns null'             => [null, null],
             'non-string returns null'             => [12345, null],
-            // Country supplied — validated and formatted via brick/postcode.
+            // Country supplied - validated and formatted via brick/postcode.
             'us five digit zip is valid'                => ['33602', '33602', 'US'],
             'us zip plus four is hyphenated'            => ['337014313', '33701-4313', 'US'],
             'lowercase country code is resolved'        => ['33602', '33602', 'us'],
@@ -48,6 +54,7 @@ class PostalCodeTest extends TypeTestCase
      *
      * @return string
      */
+    #[\Override]
     protected function getNormalizerName(): string
     {
         return 'postalCode';

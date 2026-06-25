@@ -1,30 +1,32 @@
 <?php
 
-namespace SineMacula\Foundation\Normalizers\Traits;
+declare(strict_types = 1);
+
+namespace SineMacula\Foundation\Normalizers\Concerns;
 
 /**
- * The stop word provider trait.
+ * The acronym provider trait.
  *
  * @author      Ben Carey <bdmc@sinemacula.co.uk>
  * @copyright   2026 Sine Macula Limited
  */
-trait StopWordProvider
+trait AcronymProvider
 {
     use LoadsJsonResources;
 
     /** @var array<int, string> */
-    private static array $stopWords;
+    private static array $acronyms;
 
     /**
-     * Return the stop words.
+     * Return the acronyms.
      *
      * @return array<int, string>
      *
      * @throws \SineMacula\Foundation\Normalizers\Exceptions\InvalidResourceFileException
      * @throws \SineMacula\Foundation\Normalizers\Exceptions\ResourceFileNotFoundException
      */
-    protected static function getStopWords(): array
+    protected static function getAcronyms(): array
     {
-        return self::$stopWords ??= self::loadJson('stopwords');
+        return self::$acronyms ??= self::loadJson('acronyms');
     }
 }

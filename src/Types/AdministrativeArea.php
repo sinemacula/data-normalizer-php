@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace SineMacula\Foundation\Normalizers\Types;
 
 use CommerceGuys\Addressing\Subdivision\SubdivisionRepository;
@@ -12,7 +14,7 @@ use SineMacula\Foundation\Normalizers\Normalizer;
  * @author      Ben Carey <bdmc@sinemacula.co.uk>
  * @copyright   2026 Sine Macula Limited
  */
-class AdministrativeArea implements NormalizerInterface
+final class AdministrativeArea implements NormalizerInterface
 {
     /** @var string The country used when no country context is given. */
     private const string DEFAULT_COUNTRY = 'US';
@@ -43,6 +45,8 @@ class AdministrativeArea implements NormalizerInterface
      *
      * @param  mixed|null  $context
      * @return string
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint
      */
     private static function getCountryFromContext(mixed $context = null): string
     {

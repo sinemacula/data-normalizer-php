@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Tests\Unit\Types;
 
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -14,13 +16,16 @@ use SineMacula\Foundation\Normalizers\Types\AddressLine;
  * @internal
  */
 #[CoversClass(AddressLine::class)]
-class AddressLineTest extends TypeTestCase
+final class AddressLineTest extends TypeTestCase
 {
     /**
      * Data provider for test cases.
      *
      * @return array<string, array<int, mixed>>
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint
      */
+    #[\Override]
     public static function dataProvider(): array
     {
         return [
@@ -46,6 +51,7 @@ class AddressLineTest extends TypeTestCase
      *
      * @return string
      */
+    #[\Override]
     protected function getNormalizerName(): string
     {
         return 'addressLine';

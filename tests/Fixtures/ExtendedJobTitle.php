@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Tests\Fixtures;
 
 use SineMacula\Foundation\Normalizers\Types\JobTitle;
@@ -13,7 +15,7 @@ use SineMacula\Foundation\Normalizers\Types\JobTitle;
  * @author      Ben Carey <bdmc@sinemacula.co.uk>
  * @copyright   2026 Sine Macula Limited
  */
-class ExtendedJobTitle extends JobTitle
+final class ExtendedJobTitle extends JobTitle
 {
     /**
      * Expose the acronyms provider.

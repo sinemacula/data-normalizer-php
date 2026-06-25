@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace SineMacula\Foundation\Normalizers\Types;
 
 use SineMacula\Foundation\Normalizers\Contracts\NormalizerInterface;
@@ -11,7 +13,7 @@ use SineMacula\Foundation\Normalizers\Normalizer;
  * @author      Ben Carey <bdmc@sinemacula.co.uk>
  * @copyright   2026 Sine Macula Limited
  */
-class CompanyName implements NormalizerInterface
+final class CompanyName implements NormalizerInterface
 {
     /** @var array<int, string> Legal company-suffix patterns. */
     private const array SUFFIX_PATTERNS = [

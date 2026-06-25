@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Tests\Unit;
 
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -17,7 +19,7 @@ use Tests\Fixtures\UppercaseNormalizer;
  * @internal
  */
 #[CoversClass(Normalizer::class)]
-class NormalizerTest extends UnitTestCase
+final class NormalizerTest extends UnitTestCase
 {
     /**
      * Set up the test case.
@@ -52,7 +54,7 @@ class NormalizerTest extends UnitTestCase
      */
     public function testDispatchesCallToMatchingBuiltInNormalizer(): void
     {
-        static::assertSame('some string with extra spaces', Normalizer::clean(' some  string with extra    spaces '));
+        self::assertSame('some string with extra spaces', Normalizer::clean(' some  string with extra    spaces '));
     }
 
     /**
@@ -64,7 +66,7 @@ class NormalizerTest extends UnitTestCase
     {
         Normalizer::register('uppercase', UppercaseNormalizer::class);
 
-        static::assertSame('HELLO', Normalizer::__callStatic('uppercase', ['hello']));
+        self::assertSame('HELLO', Normalizer::__callStatic('uppercase', ['hello']));
     }
 
     /**
@@ -76,7 +78,7 @@ class NormalizerTest extends UnitTestCase
     {
         Normalizer::register('clean', UppercaseNormalizer::class);
 
-        static::assertSame(' HELLO  WORLD ', Normalizer::clean(' hello  world '));
+        self::assertSame(' HELLO  WORLD ', Normalizer::clean(' hello  world '));
     }
 
     /**
@@ -86,11 +88,11 @@ class NormalizerTest extends UnitTestCase
      */
     public function testRegisteringAfterBuiltInIsMemoisedStillOverridesIt(): void
     {
-        static::assertSame('hello world', Normalizer::clean(' hello  world '));
+        self::assertSame('hello world', Normalizer::clean(' hello  world '));
 
         Normalizer::register('clean', UppercaseNormalizer::class);
 
-        static::assertSame(' HELLO  WORLD ', Normalizer::clean(' hello  world '));
+        self::assertSame(' HELLO  WORLD ', Normalizer::clean(' hello  world '));
     }
 
     /**
@@ -103,7 +105,7 @@ class NormalizerTest extends UnitTestCase
         Normalizer::register('custom', UppercaseNormalizer::class);
         Normalizer::register('custom', ReverseNormalizer::class);
 
-        static::assertSame('olleh', Normalizer::__callStatic('custom', ['hello']));
+        self::assertSame('olleh', Normalizer::__callStatic('custom', ['hello']));
     }
 
     /**
@@ -115,7 +117,7 @@ class NormalizerTest extends UnitTestCase
     {
         Normalizer::register('Uppercase', UppercaseNormalizer::class);
 
-        static::assertSame('HELLO', Normalizer::__callStatic('uppercase', ['hello']));
+        self::assertSame('HELLO', Normalizer::__callStatic('uppercase', ['hello']));
     }
 
     /**
@@ -157,7 +159,7 @@ class NormalizerTest extends UnitTestCase
 
         Normalizer::flush();
 
-        static::assertSame('hello world', Normalizer::clean(' hello  world '));
+        self::assertSame('hello world', Normalizer::clean(' hello  world '));
     }
 
     /**

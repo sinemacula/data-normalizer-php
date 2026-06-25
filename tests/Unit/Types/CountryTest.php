@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Tests\Unit\Types;
 
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -14,13 +16,16 @@ use SineMacula\Foundation\Normalizers\Types\Country;
  * @internal
  */
 #[CoversClass(Country::class)]
-class CountryTest extends TypeTestCase
+final class CountryTest extends TypeTestCase
 {
     /**
      * Data provider for test cases.
      *
      * @return array<string, array{0: mixed, 1: mixed}>
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint
      */
+    #[\Override]
     public static function dataProvider(): array
     {
         return [...self::matchingCases(), ...self::fuzzyCases(), ...self::rejectionCases()];
@@ -31,6 +36,7 @@ class CountryTest extends TypeTestCase
      *
      * @return string
      */
+    #[\Override]
     protected function getNormalizerName(): string
     {
         return 'country';
@@ -40,6 +46,8 @@ class CountryTest extends TypeTestCase
      * Country cases that match a code or name.
      *
      * @return array<string, array{0: mixed, 1: mixed}>
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint
      */
     private static function matchingCases(): array
     {
@@ -57,6 +65,8 @@ class CountryTest extends TypeTestCase
      * Country cases resolved by fuzzy matching.
      *
      * @return array<string, array{0: mixed, 1: mixed}>
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint
      */
     private static function fuzzyCases(): array
     {
@@ -86,6 +96,8 @@ class CountryTest extends TypeTestCase
      * Country cases that normalize to null.
      *
      * @return array<string, array{0: mixed, 1: mixed}>
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint
      */
     private static function rejectionCases(): array
     {

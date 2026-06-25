@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Tests\Unit\Traits;
 
 use PHPUnit\Framework\Attributes\CoversTrait;
-use SineMacula\Foundation\Normalizers\Traits\StopWordProvider;
+use SineMacula\Foundation\Normalizers\Concerns\StopWordProvider;
 use SineMacula\Foundation\Normalizers\Types\JobTitle;
 use Tests\Fixtures\ExtendedJobTitle;
 use Tests\Unit\UnitTestCase;
@@ -17,7 +19,7 @@ use Tests\Unit\UnitTestCase;
  * @internal
  */
 #[CoversTrait(StopWordProvider::class)]
-class StopWordProviderTest extends UnitTestCase
+final class StopWordProviderTest extends UnitTestCase
 {
     /**
      * Test that the provider is accessible from subclasses.
@@ -26,7 +28,7 @@ class StopWordProviderTest extends UnitTestCase
      */
     public function testProviderIsAccessibleFromSubclasses(): void
     {
-        static::assertNotEmpty(ExtendedJobTitle::getExposedStopWords());
+        self::assertNotEmpty(ExtendedJobTitle::getExposedStopWords());
     }
 
     /**
@@ -47,7 +49,7 @@ class StopWordProviderTest extends UnitTestCase
 
             $stopWords->setValue(null, ['__sentinel__']);
 
-            static::assertSame(['__sentinel__'], ExtendedJobTitle::getExposedStopWords());
+            self::assertSame(['__sentinel__'], ExtendedJobTitle::getExposedStopWords());
         } finally {
             $stopWords->setValue(null, $originalStopWords);
         }

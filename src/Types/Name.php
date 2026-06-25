@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace SineMacula\Foundation\Normalizers\Types;
 
 use SineMacula\Foundation\Normalizers\Contracts\NormalizerInterface;
@@ -11,7 +13,7 @@ use SineMacula\Foundation\Normalizers\Normalizer;
  * @author      Ben Carey <bdmc@sinemacula.co.uk>
  * @copyright   2026 Sine Macula Limited
  */
-class Name implements NormalizerInterface
+final class Name implements NormalizerInterface
 {
     /** @var array<int, string> Name prefixes with special capitalization. */
     private const array SPECIAL_CASES_PREFIXES = [

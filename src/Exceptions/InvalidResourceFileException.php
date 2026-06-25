@@ -1,6 +1,10 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace SineMacula\Foundation\Normalizers\Exceptions;
+
+use SineMacula\Foundation\Normalizers\Exceptions\Contracts\NormalizerExceptionInterface;
 
 /**
  * Exception thrown when a resource file does not contain valid data.
@@ -8,4 +12,4 @@ namespace SineMacula\Foundation\Normalizers\Exceptions;
  * @author      Ben Carey <bdmc@sinemacula.co.uk>
  * @copyright   2026 Sine Macula Limited
  */
-class InvalidResourceFileException extends \RuntimeException implements NormalizerExceptionInterface {}
+final class InvalidResourceFileException extends \RuntimeException implements NormalizerExceptionInterface {}

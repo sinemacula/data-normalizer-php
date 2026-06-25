@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace SineMacula\Foundation\Normalizers\Types;
 
 use SineMacula\Foundation\Normalizers\Contracts\NormalizerInterface;
@@ -11,7 +13,7 @@ use SineMacula\Foundation\Normalizers\Normalizer;
  * @author      Ben Carey <bdmc@sinemacula.co.uk>
  * @copyright   2026 Sine Macula Limited
  */
-class Ssn implements NormalizerInterface
+final class Ssn implements NormalizerInterface
 {
     /**
      * Normalize the given value.
@@ -29,7 +31,8 @@ class Ssn implements NormalizerInterface
             return null;
         }
 
-        // Redacted SSNs are preserved verbatim; stripping to digits would fabricate a partial SSN.
+        // Redacted SSNs are preserved verbatim; stripping to digits would
+        // fabricate a partial SSN.
         if (preg_match('/^\*+\d+$/', $value)) {
             return $value;
         }

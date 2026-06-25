@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Tests\Fixtures;
 
-use SineMacula\Foundation\Normalizers\Traits\LoadsJsonResources;
+use SineMacula\Foundation\Normalizers\Concerns\LoadsJsonResources;
 
 /**
  * Resource provider fixture.
@@ -13,7 +15,7 @@ use SineMacula\Foundation\Normalizers\Traits\LoadsJsonResources;
  * @author      Ben Carey <bdmc@sinemacula.co.uk>
  * @copyright   2026 Sine Macula Limited
  */
-class ResourceProvider
+final class ResourceProvider
 {
     use LoadsJsonResources;
 

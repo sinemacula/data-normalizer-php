@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Tests\Unit\Types;
 
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -18,6 +20,8 @@ abstract class TypeTestCase extends UnitTestCase
      * Data provider for test cases.
      *
      * @return array<array-key, array<int, mixed>>
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint
      */
     abstract public static function dataProvider(): iterable;
 
@@ -28,6 +32,8 @@ abstract class TypeTestCase extends UnitTestCase
      * @param  mixed  $expected
      * @param  mixed|null  $context
      * @return void
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint
      */
     #[DataProvider('dataProvider')]
     public function testNormalizesValueToExpectedResult(mixed $input, mixed $expected, mixed $context = null): void

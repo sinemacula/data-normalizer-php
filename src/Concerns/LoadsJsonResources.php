@@ -1,6 +1,8 @@
 <?php
 
-namespace SineMacula\Foundation\Normalizers\Traits;
+declare(strict_types = 1);
+
+namespace SineMacula\Foundation\Normalizers\Concerns;
 
 use SineMacula\Foundation\Normalizers\Exceptions\InvalidResourceFileException;
 use SineMacula\Foundation\Normalizers\Exceptions\ResourceFileNotFoundException;
