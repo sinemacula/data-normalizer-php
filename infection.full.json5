@@ -3,6 +3,12 @@
     source: {
         directories: [
             "src"
+        ],
+        // Mirrors the phpunit.xml.dist coverage excludes: these trees hold no
+        // executable code.
+        excludes: [
+            "Contracts",
+            "Exceptions"
         ]
     },
     logs: {
