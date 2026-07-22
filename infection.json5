@@ -3,6 +3,13 @@
     source: {
         directories: [
             "src"
+        ],
+        // Mirrors the phpunit.xml.dist coverage excludes: these trees hold no
+        // executable code, and diff-scoped runs abort when a changed file has
+        // no name-mapped test class.
+        excludes: [
+            "Contracts",
+            "Exceptions"
         ]
     },
     logs: {
