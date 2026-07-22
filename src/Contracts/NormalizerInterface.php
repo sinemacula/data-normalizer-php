@@ -15,8 +15,8 @@ interface NormalizerInterface
     /**
      * Normalize the given value.
      *
-     * The contract is deliberately `mixed`: normalizers accept raw input of
-     * any shape, return null for values they cannot normalize, and each
+     * The contract is deliberately `mixed`: normalizers accept raw input of any
+     * shape, return null for values they cannot normalize, and each
      * implementation defines its own normalized return shape.
      *
      * @param  mixed  $value
