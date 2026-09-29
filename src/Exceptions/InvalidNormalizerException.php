@@ -11,5 +11,7 @@ use SineMacula\Foundation\Normalizers\Exceptions\Contracts\NormalizerExceptionIn
  *
  * @author      Ben Carey <bdmc@sinemacula.co.uk>
  * @copyright   2026 Sine Macula Limited
+ *
+ * @inheritable
  */
-final class InvalidNormalizerException extends \InvalidArgumentException implements NormalizerExceptionInterface {}
+class InvalidNormalizerException extends \InvalidArgumentException implements NormalizerExceptionInterface {}

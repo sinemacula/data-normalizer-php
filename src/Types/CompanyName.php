@@ -12,8 +12,10 @@ use SineMacula\Foundation\Normalizers\Normalizer;
  *
  * @author      Ben Carey <bdmc@sinemacula.co.uk>
  * @copyright   2026 Sine Macula Limited
+ *
+ * @inheritable
  */
-final class CompanyName implements NormalizerInterface
+class CompanyName implements NormalizerInterface
 {
     /** @var array<int, string> Legal company-suffix patterns. */
     private const array SUFFIX_PATTERNS = [

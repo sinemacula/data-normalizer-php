@@ -11,8 +11,10 @@ use SineMacula\Foundation\Normalizers\Contracts\NormalizerInterface;
  *
  * @author      Ben Carey <bdmc@sinemacula.co.uk>
  * @copyright   2026 Sine Macula Limited
+ *
+ * @inheritable
  */
-final class Clean implements NormalizerInterface
+class Clean implements NormalizerInterface
 {
     /**
      * Normalize the given value.

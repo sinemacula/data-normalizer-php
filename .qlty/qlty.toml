@@ -32,12 +32,6 @@ test_patterns = [
     "**/spec_*.*",
 ]
 
-[runtimes.enabled]
-php = "8.3"
-
-[smells]
-mode = "comment"
-
 [[source]]
 name = "default"
 default = true
@@ -47,74 +41,21 @@ name = "sinemacula"
 repository = "https://github.com/sinemacula/coding-standards"
 tag = "v1.25.0"
 
-[[plugin]]
-name = "actionlint"
-
-[[plugin]]
-name = "editorconfig-checker"
-
-[[plugin]]
-name = "markdownlint"
-mode = "comment"
-
-[[plugin]]
-name = "osv-scanner"
-
+# The shared standard plus slevomat and the installer come from composer.json
+# so the ruleset's sniffs resolve in qlty's sandbox.
 [[plugin]]
 name = "php-codesniffer"
-version = "4.0.4"
-mode = "comment"
 package_file = "composer.json"
 package_filters = ["slevomat", "dealerdirect", "sinemacula"]
 
-# phpcs 4.x exits 3 on findings; without this qlty treats that as a hard error
-# and drops every finding instead of reporting them.
-[plugins.definitions.php-codesniffer.drivers.lint]
-success_codes = [0, 1, 2, 3]
-
-# The sandbox install ignores platform requirements, so symfony is held on the
-# 7.x line: 8.x needs PHP 8.4.1 and uses 8.4-only syntax the PHP 8.3 runner
-# cannot parse. These pins only take effect without package_file, which qlty
-# treats as mutually exclusive with extra_packages.
+# The fixer config builds on the base PhpCsFixerConfig, so the standards package
+# is installed into the sandbox directly. It cannot come from package_file:
+# setting that key makes qlty ignore extra_packages.
 [[plugin]]
 name = "php-cs-fixer"
-version = "3.95.25"
-extra_packages = [
-    "sinemacula/coding-standards@1.25.0",
-    "symfony/console@^7.4",
-    "symfony/event-dispatcher@^7.4",
-    "symfony/filesystem@^7.4",
-    "symfony/finder@^7.4",
-    "symfony/options-resolver@^7.4",
-    "symfony/process@^7.4",
-    "symfony/stopwatch@^7.4",
-    "symfony/string@^7.4",
-]
+extra_packages = ["sinemacula/coding-standards@1.25.0"]
 
 [[plugin]]
 name = "phpstan"
-version = "2.1.46"
+version = "2.2.16"
 package_file = "composer.json"
-
-[[plugin]]
-name = "radarlint-php"
-mode = "comment"
-
-[[plugin]]
-name = "trivy"
-drivers = [
-    "config",
-    "fs-vuln",
-]
-
-[[plugin]]
-name = "trufflehog"
-
-[[plugin]]
-name = "yamllint"
-
-# Skip radarlint smell analysis on the test tree — reused fixture literals and
-# multi-branch data providers trip duplication/return-count rules without value.
-[[exclude]]
-plugins = ["radarlint-php"]
-file_patterns = ["tests/**"]

@@ -13,8 +13,10 @@ use SineMacula\Foundation\Normalizers\Normalizer;
  *
  * @author      Ben Carey <bdmc@sinemacula.co.uk>
  * @copyright   2026 Sine Macula Limited
+ *
+ * @inheritable
  */
-final class Country implements NormalizerInterface
+class Country implements NormalizerInterface
 {
     /** @var int The minimum length required for fuzzy matching. */
     private const int MINIMUM_FUZZY_INPUT_LENGTH = 3;

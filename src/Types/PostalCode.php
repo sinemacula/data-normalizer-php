@@ -15,8 +15,10 @@ use SineMacula\Foundation\Normalizers\Normalizer;
  *
  * @author      Ben Carey <bdmc@sinemacula.co.uk>
  * @copyright   2026 Sine Macula Limited
+ *
+ * @inheritable
  */
-final class PostalCode implements NormalizerInterface
+class PostalCode implements NormalizerInterface
 {
     /**
      * Normalize the given value.

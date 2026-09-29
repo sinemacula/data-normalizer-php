@@ -2,12 +2,13 @@
 
 declare(strict_types = 1);
 
-namespace Tests\Unit\Traits;
+namespace Tests\Unit\Concerns;
 
 use PHPUnit\Framework\Attributes\CoversTrait;
 use SineMacula\Foundation\Normalizers\Concerns\LoadsJsonResources;
 use SineMacula\Foundation\Normalizers\Exceptions\InvalidResourceFileException;
 use SineMacula\Foundation\Normalizers\Exceptions\ResourceFileNotFoundException;
+use Tests\Fixtures\LegacyResourceProvider;
 use Tests\Fixtures\ResourceProvider;
 use Tests\Unit\UnitTestCase;
 
@@ -100,5 +101,15 @@ final class LoadsJsonResourcesTest extends UnitTestCase
         $this->expectException(InvalidResourceFileException::class);
 
         ResourceProvider::load('..foo');
+    }
+
+    /**
+     * Test that the deprecated location still loads resource files.
+     *
+     * @return void
+     */
+    public function testDeprecatedLocationStillLoadsResourceFiles(): void
+    {
+        self::assertSame(ResourceProvider::load('acronyms'), LegacyResourceProvider::load('acronyms'));
     }
 }

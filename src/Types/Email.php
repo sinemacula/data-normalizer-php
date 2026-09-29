@@ -12,8 +12,10 @@ use SineMacula\Foundation\Normalizers\Normalizer;
  *
  * @author      Ben Carey <bdmc@sinemacula.co.uk>
  * @copyright   2026 Sine Macula Limited
+ *
+ * @inheritable
  */
-final class Email implements NormalizerInterface
+class Email implements NormalizerInterface
 {
     /**
      * Normalize the given value.

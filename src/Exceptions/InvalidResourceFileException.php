@@ -11,5 +11,7 @@ use SineMacula\Foundation\Normalizers\Exceptions\Contracts\NormalizerExceptionIn
  *
  * @author      Ben Carey <bdmc@sinemacula.co.uk>
  * @copyright   2026 Sine Macula Limited
+ *
+ * @inheritable
  */
-final class InvalidResourceFileException extends \RuntimeException implements NormalizerExceptionInterface {}
+class InvalidResourceFileException extends \RuntimeException implements NormalizerExceptionInterface {}

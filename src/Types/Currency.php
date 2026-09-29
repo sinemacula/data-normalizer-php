@@ -13,8 +13,10 @@ use Symfony\Component\Intl\Currencies;
  *
  * @author      Ben Carey <bdmc@sinemacula.co.uk>
  * @copyright   2026 Sine Macula Limited
+ *
+ * @inheritable
  */
-final class Currency implements NormalizerInterface
+class Currency implements NormalizerInterface
 {
     /**
      * Normalize the given value.

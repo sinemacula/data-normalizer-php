@@ -24,7 +24,7 @@
     "require-dev": {
         "brianium/paratest": "^7.20",
         "friendsofphp/php-cs-fixer": "^3.94",
-        "infection/infection": "^0.33.2",
+        "infection/infection": "^0.35.4",
         "phpbench/phpbench": "^1.6.1",
         "phpstan/extension-installer": "^1.4",
         "phpstan/phpdoc-parser": "^2.3",

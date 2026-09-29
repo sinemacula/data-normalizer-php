@@ -13,8 +13,10 @@ use SineMacula\Foundation\Normalizers\Normalizer;
  *
  * @author      Ben Carey <bdmc@sinemacula.co.uk>
  * @copyright   2026 Sine Macula Limited
+ *
+ * @inheritable
  */
-final class AdministrativeArea implements NormalizerInterface
+class AdministrativeArea implements NormalizerInterface
 {
     /** @var string The country used when no country context is given. */
     private const string DEFAULT_COUNTRY = 'US';

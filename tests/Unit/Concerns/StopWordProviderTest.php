@@ -2,12 +2,13 @@
 
 declare(strict_types = 1);
 
-namespace Tests\Unit\Traits;
+namespace Tests\Unit\Concerns;
 
 use PHPUnit\Framework\Attributes\CoversTrait;
 use SineMacula\Foundation\Normalizers\Concerns\StopWordProvider;
 use SineMacula\Foundation\Normalizers\Types\JobTitle;
 use Tests\Fixtures\ExtendedJobTitle;
+use Tests\Fixtures\LegacyJobTitle;
 use Tests\Unit\UnitTestCase;
 
 /**
@@ -53,5 +54,15 @@ final class StopWordProviderTest extends UnitTestCase
         } finally {
             $stopWords->setValue(null, $originalStopWords);
         }
+    }
+
+    /**
+     * Test that the deprecated location still provides the stop words.
+     *
+     * @return void
+     */
+    public function testDeprecatedLocationStillProvidesStopWords(): void
+    {
+        self::assertSame(ExtendedJobTitle::getExposedStopWords(), LegacyJobTitle::getExposedStopWords());
     }
 }

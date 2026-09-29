@@ -47,6 +47,27 @@ final class AddressLineTest extends TypeTestCase
     }
 
     /**
+     * Test that a failed trailing comma strip returns null.
+     *
+     * Starving PCRE forces the comma strip to fail, which must return null as
+     * it did before strict types rather than pass null into rtrim().
+     *
+     * @return void
+     */
+    public function testFailedTrailingCommaStripReturnsNull(): void
+    {
+        $jit            = ini_set('pcre.jit', '0');
+        $backtrackLimit = ini_set('pcre.backtrack_limit', '2');
+
+        try {
+            self::assertNull(AddressLine::normalize('x, , , ,'));
+        } finally {
+            ini_set('pcre.jit', (string) $jit);
+            ini_set('pcre.backtrack_limit', (string) $backtrackLimit);
+        }
+    }
+
+    /**
      * Return the normalizer name.
      *
      * @return string
