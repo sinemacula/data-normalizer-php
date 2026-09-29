@@ -12,8 +12,10 @@ use SineMacula\Foundation\Normalizers\Normalizer;
  *
  * @author      Ben Carey <bdmc@sinemacula.co.uk>
  * @copyright   2026 Sine Macula Limited
+ *
+ * @inheritable
  */
-final class Date implements NormalizerInterface
+class Date implements NormalizerInterface
 {
     /** @var array<int, string> The supported date formats. */
     private const array SUPPORTED_INPUT_FORMATS = [

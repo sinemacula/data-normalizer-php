@@ -12,8 +12,10 @@ use SineMacula\Foundation\Normalizers\Normalizer;
  *
  * @author      Ben Carey <bdmc@sinemacula.co.uk>
  * @copyright   2026 Sine Macula Limited
+ *
+ * @inheritable
  */
-final class AddressLine implements NormalizerInterface
+class AddressLine implements NormalizerInterface
 {
     /**
      * Normalize the given value.

@@ -7,6 +7,7 @@ namespace Tests\Unit;
 use PHPUnit\Framework\Attributes\CoversClass;
 use SineMacula\Foundation\Normalizers\Exceptions\InvalidNormalizerException;
 use SineMacula\Foundation\Normalizers\Normalizer;
+use Tests\Fixtures\DocumentedNormalizer;
 use Tests\Fixtures\ReverseNormalizer;
 use Tests\Fixtures\UppercaseNormalizer;
 
@@ -190,5 +191,17 @@ final class NormalizerTest extends UnitTestCase
         $this->expectExceptionMessage('Normalizer \'SineMacula\Foundation\Normalizers\Types\NonexistentThing\' not found.');
 
         Normalizer::__callStatic('nonexistentThing', ['value']);
+    }
+
+    /**
+     * Test that a facade subclass dispatches to registered normalizers.
+     *
+     * @return void
+     */
+    public function testFacadeSubclassDispatchesToRegisteredNormalizers(): void
+    {
+        Normalizer::register('uppercase', UppercaseNormalizer::class);
+
+        self::assertSame('HELLO', DocumentedNormalizer::uppercase('hello'));
     }
 }

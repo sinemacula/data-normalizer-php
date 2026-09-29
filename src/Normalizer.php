@@ -31,8 +31,10 @@ use SineMacula\Foundation\Normalizers\Exceptions\InvalidNormalizerException;
  * @copyright   2026 Sine Macula Limited
  *
  * @managed-static
+ *
+ * @inheritable
  */
-final class Normalizer
+class Normalizer
 {
     /** @var array<string, class-string<\SineMacula\Foundation\Normalizers\Contracts\NormalizerInterface>> */
     private static array $normalizers = [];
