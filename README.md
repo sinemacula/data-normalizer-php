@@ -116,6 +116,12 @@ use SineMacula\Foundation\Normalizers\Normalizer as BaseNormalizer;
 class Normalizer extends BaseNormalizer {}
 ```
 
+## Deprecations
+
+The resource traits moved to `SineMacula\Foundation\Normalizers\Concerns` in 1.1.0; require `^1.1` to use the new
+names. `AcronymProvider`, `StopWordProvider` and `LoadsJsonResources` under `SineMacula\Foundation\Normalizers\Traits`
+remain as deprecated wrappers that use them until 2.0.0.
+
 ## Requirements
 
 - PHP ^8.3

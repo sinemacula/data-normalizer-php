@@ -8,6 +8,7 @@ use PHPUnit\Framework\Attributes\CoversTrait;
 use SineMacula\Foundation\Normalizers\Concerns\AcronymProvider;
 use SineMacula\Foundation\Normalizers\Types\JobTitle;
 use Tests\Fixtures\ExtendedJobTitle;
+use Tests\Fixtures\LegacyJobTitle;
 use Tests\Unit\UnitTestCase;
 
 /**
@@ -53,5 +54,15 @@ final class AcronymProviderTest extends UnitTestCase
         } finally {
             $acronyms->setValue(null, $originalAcronyms);
         }
+    }
+
+    /**
+     * Test that the deprecated location still provides the acronyms.
+     *
+     * @return void
+     */
+    public function testDeprecatedLocationStillProvidesAcronyms(): void
+    {
+        self::assertSame(ExtendedJobTitle::getExposedAcronyms(), LegacyJobTitle::getExposedAcronyms());
     }
 }
