@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace SineMacula\Foundation\Normalizers\Types;
 
 use CommerceGuys\Addressing\Subdivision\SubdivisionRepository;
+use SineMacula\Foundation\Normalizers\Concerns\ConvertsCase;
 use SineMacula\Foundation\Normalizers\Contracts\NormalizerInterface;
 use SineMacula\Foundation\Normalizers\Normalizer;
 
@@ -18,6 +19,8 @@ use SineMacula\Foundation\Normalizers\Normalizer;
  */
 class AdministrativeArea implements NormalizerInterface
 {
+    use ConvertsCase;
+
     /** @var string The country used when no country context is given. */
     private const string DEFAULT_COUNTRY = 'US';
 
@@ -39,7 +42,9 @@ class AdministrativeArea implements NormalizerInterface
 
         $country = self::getCountryFromContext($context);
 
-        return self::findMatchingSubdivision($value, self::getSubdivisions($country));
+        $subdivisions = self::getSubdivisions($country);
+
+        return self::findMatchingSubdivision($value, $subdivisions) ?? self::findFoldedSubdivision($value, $subdivisions);
     }
 
     /**
@@ -74,6 +79,47 @@ class AdministrativeArea implements NormalizerInterface
         }
 
         return null;
+    }
+
+    /**
+     * Find the subdivision whose case-folded code or name matches.
+     *
+     * Runs only for non-ASCII input the ASCII case-insensitive match missed, so
+     * every existing result is kept. Turkish dotted and dotless i fold to i.
+     *
+     * @param  string  $value
+     * @param  array<string, \CommerceGuys\Addressing\Subdivision\Subdivision>  $subdivisions
+     * @return ?string
+     */
+    private static function findFoldedSubdivision(string $value, array $subdivisions): ?string
+    {
+        if (preg_match('/[^\x00-\x7F]/', $value) !== 1 || !self::isMultibyte($value)) {
+            return null;
+        }
+
+        $folded = self::fold($value);
+
+        foreach ($subdivisions as $subdivision) {
+            if (
+                self::fold($subdivision->getName())    === $folded
+                || self::fold($subdivision->getCode()) === $folded
+            ) {
+                return $subdivision->getCode() ?: $subdivision->getName();
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Fold the value for a Unicode case-insensitive comparison.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    private static function fold(string $value): string
+    {
+        return str_replace("i\u{0307}", 'i', self::toLower(str_replace("\u{0131}", 'i', $value), true));
     }
 
     /**

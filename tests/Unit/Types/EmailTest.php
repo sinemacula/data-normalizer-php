@@ -41,6 +41,10 @@ final class EmailTest extends TypeTestCase
             'only spaces returns null'                     => ['   ', null],
             'null input returns null'                      => [null, null],
             'invalid email format remains normalized text' => ['invalid-email-format', 'invalid-email-format'],
+            'accented letters are lowercased'              => ['JOSÉ@EXAMPLE.COM', 'josé@example.com'],
+            'kelvin sign is not folded to ascii'           => ["ADMIN\u{212A}@EXAMPLE.COM", "admin\u{212A}@example.com"],
+            'dotted capital i is kept'                     => ["\u{0130}PEK@EXAMPLE.COM", "\u{0130}pek@example.com"],
+            'invalid utf-8 keeps byte-wise casing'         => ["J\xC9SUS@EXAMPLE.COM", "j\xC9sus@example.com"],
         ];
     }
 

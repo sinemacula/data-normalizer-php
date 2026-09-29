@@ -47,6 +47,15 @@ final class AdministrativeAreaTest extends TypeTestCase
             'second us state example resolves'          => ['Texas', 'TX'],
             'canada british columbia resolves'          => ['British Columbia', 'BC', 'CA'],
             'canada newfoundland and labrador resolves' => ['Newfoundland and Labrador', 'NL', 'CA'],
+            'uppercase accented name matches'           => ['SÃO PAULO', 'SP', 'BR'],
+            'uppercase accented name returns code'      => ['MICHOACÁN', 'Mich.', 'MX'],
+            'uppercase dotless i name matches'          => ['ŞANLIURFA', 'Şanlıurfa', 'TR'],
+            'ascii transliteration is not matched'      => ['AYDIN', null, 'TR'],
+            'uppercase dotted i name matches'           => ['İSTANBUL', 'İstanbul', 'TR'],
+            'uppercase dotted i name folds'             => ['İZMİR', 'İzmir', 'TR'],
+            'ascii dotted i name is not matched'        => ['istanbul', null, 'TR'],
+            'decomposed dotted i name matches'          => ["i\u{0307}zmir", 'İzmir', 'TR'],
+            'invalid utf-8 name returns null'           => ["S\xC3O PAULO", null, 'BR'],
         ];
     }
 

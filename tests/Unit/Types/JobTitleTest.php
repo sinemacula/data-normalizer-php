@@ -65,6 +65,10 @@ final class JobTitleTest extends TypeTestCase
             'empty string returns null'                      => ['', null],
             'spaces only returns null'                       => ['   ', null],
             'null input returns null'                        => [null, null],
+            'accented title normalizes'                      => ['DIRECTEUR GÉNÉRAL', 'Directeur Général'],
+            'accented hyphenated segment is capitalized'     => ['chef-équipe', 'Chef-Équipe'],
+            'umlauts normalize around an acronym'            => ['GESCHÄFTSFÜHRER (CEO)', 'Geschäftsführer (CEO)'],
+            'invalid utf-8 keeps byte-wise casing'           => ["DIRECTEUR G\xC9N\xC9RAL", "Directeur G\xC9n\xC9ral"],
         ];
     }
 
