@@ -135,17 +135,34 @@ class Date implements NormalizerInterface
 
         $parsed = date_parse($value);
 
-        $relative = $parsed['relative'] ?? self::NO_RELATIVE_OFFSET;
-
-        unset($relative['weekday']);
-
-        if ($relative !== self::NO_RELATIVE_OFFSET) {
+        if ($parsed['warning_count'] > 0 || (isset($parsed['relative']) && !self::isWeekdayOnly($parsed['relative']))) {
             return null;
         }
 
         $date = self::parseUsingNativeParser($value);
 
         return $date?->format('Y-m-d') === sprintf('%04d-%02d-%02d', $parsed['year'], $parsed['month'], $parsed['day']) ? $date : null;
+    }
+
+    /**
+     * Determine whether a parsed relative part is only a weekday.
+     *
+     * A zero offset such as '+0 day' still counts as a relative expression.
+     *
+     * @param  array<string, mixed>  $relative
+     * @return bool
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint
+     */
+    private static function isWeekdayOnly(array $relative): bool
+    {
+        if (!array_key_exists('weekday', $relative)) {
+            return false;
+        }
+
+        unset($relative['weekday']);
+
+        return $relative === self::NO_RELATIVE_OFFSET;
     }
 
     /**
