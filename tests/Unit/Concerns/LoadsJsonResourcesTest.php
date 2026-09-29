@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Tests\Unit\Traits;
+namespace Tests\Unit\Concerns;
 
 use PHPUnit\Framework\Attributes\CoversTrait;
 use SineMacula\Foundation\Normalizers\Concerns\LoadsJsonResources;
