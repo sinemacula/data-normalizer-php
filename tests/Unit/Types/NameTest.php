@@ -58,6 +58,19 @@ final class NameTest extends TypeTestCase
             'three part comma syntax stays in place'             => ['Doe, John, Jr', 'Doe, John, Jr'],
             'comma syntax with extra spaces normalizes'          => ['  Doe ,   John  ', self::NORMALIZED_JOHN_DOE],
             'comma syntax with hyphenated first name normalizes' => ['SMITH, aNNa-mArie', 'Anna-Marie Smith'],
+            'accented uppercase name normalizes'                 => ['JOSÉ', 'José'],
+            'eñe uppercase name normalizes'                      => ['ÑUÑEZ', 'Ñuñez'],
+            'accented first letter is capitalized'               => ['émile zola', 'Émile Zola'],
+            'hyphenated accented surname normalizes'             => ['GARCÍA-LÓPEZ', 'García-López'],
+            'accented particles remain lowercase'                => ['JOSÉ DE LA CRUZ', 'José de la Cruz'],
+            'mc prefix with accented remainder normalizes'       => ['MCÉLROY', 'McÉlroy'],
+            'o apostrophe prefix with eñe normalizes'            => ['O\'ÑEILL', 'O\'Ñeill'],
+            'accented comma syntax flips order'                  => ['NÚÑEZ, JOSÉ', 'José Núñez'],
+            'nordic letters normalize'                           => ['ÅSA ÖBERG', 'Åsa Öberg'],
+            'dotted capital i keeps its dot'                     => ['İSMAİL', 'İsmail'],
+            'cased turkish name is unchanged'                    => ['İsmail Yılmaz', 'İsmail Yılmaz'],
+            'sharp s initial is kept'                            => ['ßOLVIG', 'ßolvig'],
+            'invalid utf-8 keeps byte-wise casing'               => ["J\xC9SUS", "J\xC9sus"],
         ];
     }
 

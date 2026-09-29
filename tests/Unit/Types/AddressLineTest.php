@@ -43,6 +43,10 @@ final class AddressLineTest extends TypeTestCase
             'mixed case with apostrophe normalized' => ['St. JOHN\'S AVENUE', 'St. John\'s Avenue'],
             'trailing comma removed'                => ['123 main st,', '123 Main St'],
             'trailing comma with space removed'     => ['123 main st ,', '123 Main St'],
+            'leading umlaut word stays whole'       => ['ÖSTERSTRASSE 5', 'Österstrasse 5'],
+            'accented words are capitalized'        => ['12 élysée ave', '12 Élysée Ave'],
+            'accented elided word normalizes'       => ['123 RUE DE L\'ÉGLISE', '123 Rue De L\'église'],
+            'invalid utf-8 keeps byte-wise casing'  => ["12 \xC9LYSEE AVE", "12 \xC9Lysee Ave"],
         ];
     }
 

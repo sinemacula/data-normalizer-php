@@ -39,12 +39,27 @@ class Date implements NormalizerInterface
         '/^[a-z]+\s+\d{1,2}(st|nd|rd|th)?(?:,)?\s+\d{4}$/i',
     ];
 
+    /** @var array<string, int> The relative part of a date with no offset. */
+    private const array NO_RELATIVE_OFFSET = [
+        'year'   => 0,
+        'month'  => 0,
+        'day'    => 0,
+        'hour'   => 0,
+        'minute' => 0,
+        'second' => 0,
+    ];
+
     /**
      * Normalize the given value.
+     *
+     * Pass ['relative' => false] as the context to accept only absolute
+     * dates; relative expressions and timestamps then return null.
      *
      * @param  mixed  $value
      * @param  mixed|null  $context
      * @return string|null
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint
      */
     #[\Override]
     public static function normalize(mixed $value, mixed $context = null): ?string
@@ -55,18 +70,35 @@ class Date implements NormalizerInterface
             return null;
         }
 
-        $date = self::parseDate($value);
+        $date = self::parseDate($value, self::allowsRelative($context));
 
         return $date?->format('Y-m-d');
+    }
+
+    /**
+     * Determine whether the context allows relative dates.
+     *
+     * Only ['relative' => false] disables them, so any other context keeps the
+     * default behaviour.
+     *
+     * @param  mixed|null  $context
+     * @return bool
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint
+     */
+    private static function allowsRelative(mixed $context): bool
+    {
+        return !is_array($context) || ($context['relative'] ?? true) !== false;
     }
 
     /**
      * Parse the given value using strict supported formats.
      *
      * @param  string  $value
+     * @param  bool  $allowRelative
      * @return \DateTimeImmutable|null
      */
-    private static function parseDate(string $value): ?\DateTimeImmutable
+    private static function parseDate(string $value, bool $allowRelative): ?\DateTimeImmutable
     {
         $date = self::parseUsingSupportedFormats($value);
 
@@ -80,7 +112,40 @@ class Date implements NormalizerInterface
             return null;
         }
 
-        return self::parseUsingNativeParser($value);
+        return $allowRelative ? self::parseUsingNativeParser($value) : self::parseAbsoluteExpression($value);
+    }
+
+    /**
+     * Parse the value only when it names a complete, absolute date.
+     *
+     * The value may not be a Unix timestamp or carry a relative part other than
+     * a weekday, and the parsed date must be the year, month and day it names.
+     * That rejects a missing year, invalid dates and times that roll over, and
+     * a weekday that does not match the date. A month and year alone resolve to
+     * the first of the month.
+     *
+     * @param  string  $value
+     * @return \DateTimeImmutable|null
+     */
+    private static function parseAbsoluteExpression(string $value): ?\DateTimeImmutable
+    {
+        if (str_starts_with($value, '@')) {
+            return null;
+        }
+
+        $parsed = date_parse($value);
+
+        $relative = $parsed['relative'] ?? self::NO_RELATIVE_OFFSET;
+
+        unset($relative['weekday']);
+
+        if ($relative !== self::NO_RELATIVE_OFFSET) {
+            return null;
+        }
+
+        $date = self::parseUsingNativeParser($value);
+
+        return $date?->format('Y-m-d') === sprintf('%04d-%02d-%02d', $parsed['year'], $parsed['month'], $parsed['day']) ? $date : null;
     }
 
     /**

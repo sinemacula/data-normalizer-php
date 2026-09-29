@@ -37,8 +37,8 @@ A few rules hold across the surface:
 | `name`               | `Normalizer::name($value)`                          | Title-cases personal names; preserves `Mc` / `Mac` / `O'` prefixes, lowercases particles (`van`, `de`, `von`), and flips `Doe, John` to `John Doe` |
 | `email`              | `Normalizer::email($value)`                         | Lowercases and strips spaces                                                                                                                       |
 | `phone`              | `Normalizer::phone($value, ?$country)`              | Formats to E.164 via libphonenumber; defaults to the `US` region, returns `null` for invalid numbers                                               |
-| `date`               | `Normalizer::date($value)`                          | Parses a set of known formats to `Y-m-d`; returns `null` for invalid calendar dates                                                                |
-| `timezone`           | `Normalizer::timezone($value)`                      | Resolves to a canonical IANA timezone identifier (case-insensitive)                                                                                |
+| `date`               | `Normalizer::date($value, ?$options)`               | Parses to `Y-m-d`; returns `null` for invalid calendar dates, and for relative input with `['relative' => false]`                                  |
+| `timezone`           | `Normalizer::timezone($value)`                      | Resolves canonical and legacy IANA identifiers (`US/Eastern` to `America/New_York`), case-insensitive; abbreviations (`EST`) return `null`         |
 | `addressLine`        | `Normalizer::addressLine($value)`                   | Title-cases the line and strips trailing commas                                                                                                    |
 | `postalCode`         | `Normalizer::postalCode($value, ?$country)`         | Validates and formats to the country's canonical form (UK/Canada spacing, US ZIP+4 hyphen); without a country, uppercases and trims                |
 | `country`            | `Normalizer::country($value)`                       | Resolves a country name or code to its ISO 3166-1 alpha-2 code, with fuzzy matching for near-misses                                                |
@@ -64,10 +64,31 @@ Normalizer::email(' John.Smith@Example.COM ');  // 'john.smith@example.com'
 Normalizer::phone('(650) 253-0000');            // '+16502530000'
 Normalizer::country('Untied States');           // 'US'  (fuzzy match)
 Normalizer::postalCode('sw1a1aa', 'GB');        // 'SW1A 1AA'
+Normalizer::timezone('US/Eastern');             // 'America/New_York'
+Normalizer::date('09/28/2026');                 // '2026-09-28'
 
 Normalizer::clean('  not   a  phone  ');        // 'not a phone'
 Normalizer::phone('not a phone');               // null
 ```
+
+### Absolute dates
+
+By default, `date` falls back to PHP's date parser, so relative input such as `tomorrow` or `next monday` resolves
+against the server clock, and Unix timestamps such as `@1790000000` are accepted too. Pass `['relative' => false]` to
+accept only calendar dates:
+
+```php
+Normalizer::date('tomorrow', ['relative' => false]);                   // null
+Normalizer::date('2026-09-28 +1 week', ['relative' => false]);         // null
+Normalizer::date('2026-09-28T23:30:00-05:00', ['relative' => false]);  // '2026-09-28' (its own local date)
+Normalizer::date('Mon, 28 Sep 2026', ['relative' => false]);           // '2026-09-28'
+Normalizer::date('Tue, 28 Sep 2026', ['relative' => false]);           // null (the weekday does not match)
+```
+
+The value must name a year, month and day, and may carry a time, an offset or a weekday that matches the date.
+Timestamps and any other relative part reject it, including ISO week and ordinal dates (`2026W40`, `2026-271`), as do
+dates and times that would otherwise roll over. A month and year alone (`September 2026`) resolves to the first of the
+month. Any other context keeps the default behaviour.
 
 ## Extending
 

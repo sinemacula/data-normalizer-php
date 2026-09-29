@@ -29,6 +29,13 @@
                 "SineMacula\\Foundation\\Normalizers\\Concerns\\LoadsJsonResources::loadJson"
             ]
         },
+        // The folded subdivision pass only runs after the ASCII pass misses,
+        // and no subdivision data makes the order of the two observable.
+        Coalesce: {
+            ignore: [
+                "SineMacula\\Foundation\\Normalizers\\Types\\AdministrativeArea::normalize"
+            ]
+        },
         ConcatOperandRemoval: {
             ignore: [
                 "SineMacula\\Foundation\\Normalizers\\Types\\Date::parseUsingSupportedFormats"
