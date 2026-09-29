@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres
 to [Semantic Versioning](https://semver.org/).
 
+## [1.1.0](https://github.com/sinemacula/data-normalizer-php/compare/v1.0.0...v1.1.0) (2026-09-29)
+
+
+### Features
+
+* align with coding standards 1.25 and keep the 1.0 public surface ([#51](https://github.com/sinemacula/data-normalizer-php/issues/51)) ([5e4986e](https://github.com/sinemacula/data-normalizer-php/commit/5e4986ef82354cb33f642b733e907d2b0f4ea6f3))
+* handle multibyte letters, resolve legacy timezone aliases and add absolute-only dates ([#53](https://github.com/sinemacula/data-normalizer-php/issues/53)) ([8c7601a](https://github.com/sinemacula/data-normalizer-php/commit/8c7601abdc14b3a4a4a6718305e44942c92bd071))
+
+
+### Bug Fixes
+
+* close gaps in the absolute-only date mode ([#54](https://github.com/sinemacula/data-normalizer-php/issues/54)) ([0cffb52](https://github.com/sinemacula/data-normalizer-php/commit/0cffb52cc5a0a3d8c31bcf11ab29dfc514838a5f))
+
 ## [1.0.1] - 2026-06-07
 
 ### Fixed
