@@ -1,4 +1,5 @@
 .github export-ignore
+bin export-ignore
 benchmarks export-ignore
 tests export-ignore
 

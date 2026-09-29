@@ -38,7 +38,7 @@ A few rules hold across the surface:
 | `email`              | `Normalizer::email($value)`                         | Lowercases and strips spaces                                                                                                                       |
 | `phone`              | `Normalizer::phone($value, ?$country)`              | Formats to E.164 via libphonenumber; defaults to the `US` region, returns `null` for invalid numbers                                               |
 | `date`               | `Normalizer::date($value)`                          | Parses a set of known formats to `Y-m-d`; returns `null` for invalid calendar dates                                                                |
-| `timezone`           | `Normalizer::timezone($value)`                      | Resolves to a canonical IANA timezone identifier (case-insensitive)                                                                                |
+| `timezone`           | `Normalizer::timezone($value)`                      | Resolves canonical and legacy IANA identifiers (`US/Eastern` to `America/New_York`), case-insensitive; abbreviations (`EST`) return `null`         |
 | `addressLine`        | `Normalizer::addressLine($value)`                   | Title-cases the line and strips trailing commas                                                                                                    |
 | `postalCode`         | `Normalizer::postalCode($value, ?$country)`         | Validates and formats to the country's canonical form (UK/Canada spacing, US ZIP+4 hyphen); without a country, uppercases and trims                |
 | `country`            | `Normalizer::country($value)`                       | Resolves a country name or code to its ISO 3166-1 alpha-2 code, with fuzzy matching for near-misses                                                |
@@ -64,6 +64,7 @@ Normalizer::email(' John.Smith@Example.COM ');  // 'john.smith@example.com'
 Normalizer::phone('(650) 253-0000');            // '+16502530000'
 Normalizer::country('Untied States');           // 'US'  (fuzzy match)
 Normalizer::postalCode('sw1a1aa', 'GB');        // 'SW1A 1AA'
+Normalizer::timezone('US/Eastern');             // 'America/New_York'
 
 Normalizer::clean('  not   a  phone  ');        // 'not a phone'
 Normalizer::phone('not a phone');               // null
