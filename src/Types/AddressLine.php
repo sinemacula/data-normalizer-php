@@ -35,8 +35,7 @@ class AddressLine implements NormalizerInterface
 
         $normalized = preg_replace_callback('/\b\w+\'?\w*\b/', static fn (array $matches): string => ucfirst(strtolower($matches[0])), $value);
 
-        $normalized = preg_replace('/,+\s*$/', '', (string) $normalized);
-        $normalized = rtrim($normalized);
+        $normalized = rtrim((string) preg_replace('/,+\s*$/', '', (string) $normalized));
 
         return $normalized !== '' ? $normalized : null;
     }
