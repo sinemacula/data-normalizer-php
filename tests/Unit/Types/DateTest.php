@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace Tests\Unit\Types;
 
 use PHPUnit\Framework\Attributes\CoversClass;
+use SineMacula\Foundation\Normalizers\Normalizer;
 use SineMacula\Foundation\Normalizers\Types\Date;
 
 /**
@@ -53,6 +54,9 @@ final class DateTest extends TypeTestCase
             'relative weekday is rejected when absolute only'      => ['next monday', null, ['relative' => false]],
             'timestamp is rejected when absolute only'             => ['@1790000000', null, ['relative' => false]],
             'zero timestamp is rejected when absolute only'        => ['@0', null, ['relative' => false]],
+            'zero offset is rejected when absolute only'           => ['2026-09-28 +0 day', null, ['relative' => false]],
+            'cancelling offsets are rejected when absolute'        => ['2026-09-28 +1 day -1 day', null, ['relative' => false]],
+            'invalid second is rejected when absolute only'        => ['2026-09-28 10:59:60', null, ['relative' => false]],
             'ordinal date is rejected when absolute only'          => ['2026-271', null, ['relative' => false]],
             'timestamp keeps its date by default'                  => ['@1790000000', '2026-09-21', null],
             'offset expression is rejected when absolute only'     => ['2026-09-28 +1 week', null, ['relative' => false]],
@@ -80,6 +84,16 @@ final class DateTest extends TypeTestCase
             'non date text is rejected when absolute only'         => ['not a date', null, ['relative' => false]],
             'string context keeps the default behaviour'           => ['2026-09-28 +1 week', '2026-10-05', 'GB'],
         ];
+    }
+
+    /**
+     * Test that the facade accepts the context as a named argument.
+     *
+     * @return void
+     */
+    public function testFacadeAcceptsContextAsNamedArgument(): void
+    {
+        self::assertNull(Normalizer::date('tomorrow', context: ['relative' => false]));
     }
 
     /**
