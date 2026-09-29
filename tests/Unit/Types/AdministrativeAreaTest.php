@@ -55,6 +55,7 @@ final class AdministrativeAreaTest extends TypeTestCase
             'uppercase dotted i name folds'             => ['İZMİR', 'İzmir', 'TR'],
             'ascii dotted i name is not matched'        => ['istanbul', null, 'TR'],
             'decomposed dotted i name matches'          => ["i\u{0307}zmir", 'İzmir', 'TR'],
+            'unknown accented name returns null'        => ['CEARÁ', null, 'MX'],
             'invalid utf-8 name returns null'           => ["S\xC3O PAULO", null, 'BR'],
         ];
     }
