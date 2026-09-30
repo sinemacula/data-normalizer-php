@@ -39,7 +39,7 @@ default = true
 [[source]]
 name = "sinemacula"
 repository = "https://github.com/sinemacula/coding-standards"
-tag = "v1.25.0"
+tag = "v1.26.0"
 
 # The shared standard plus slevomat and the installer come from composer.json
 # so the ruleset's sniffs resolve in qlty's sandbox.
@@ -53,7 +53,7 @@ package_filters = ["slevomat", "dealerdirect", "sinemacula"]
 # setting that key makes qlty ignore extra_packages.
 [[plugin]]
 name = "php-cs-fixer"
-extra_packages = ["sinemacula/coding-standards@1.25.0"]
+extra_packages = ["sinemacula/coding-standards@1.26.0"]
 
 [[plugin]]
 name = "phpstan"
