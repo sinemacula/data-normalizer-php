@@ -1,4 +1,6 @@
-# Data Normalizer for PHP
+<h1 align="center">Data Normalizer for PHP</h1>
+
+<div align="center">
 
 [![Latest Stable Version](https://img.shields.io/packagist/v/sinemacula/data-normalizer-php.svg)](https://packagist.org/packages/sinemacula/data-normalizer-php)
 [![Build Status](https://github.com/sinemacula/data-normalizer-php/actions/workflows/tests.yml/badge.svg?branch=master)](https://github.com/sinemacula/data-normalizer-php/actions/workflows/tests.yml)
@@ -6,6 +8,8 @@
 [![Maintainability](https://qlty.sh/gh/sinemacula/projects/data-normalizer-php/maintainability.svg)](https://qlty.sh/gh/sinemacula/projects/data-normalizer-php)
 [![Code Coverage](https://qlty.sh/gh/sinemacula/projects/data-normalizer-php/coverage.svg)](https://qlty.sh/gh/sinemacula/projects/data-normalizer-php)
 [![Total Downloads](https://img.shields.io/packagist/dt/sinemacula/data-normalizer-php.svg)](https://packagist.org/packages/sinemacula/data-normalizer-php)
+
+</div>
 
 Consistent, deterministic normalization for the common data types every system handles slightly differently — names,
 emails, phone numbers, postal addresses, dates, currencies, and more. Each data type is encapsulated in a small,
