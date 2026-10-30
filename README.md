@@ -3,11 +3,13 @@
 <div align="center">
 
 [![Latest Stable Version](https://img.shields.io/packagist/v/sinemacula/data-normalizer-php.svg)](https://packagist.org/packages/sinemacula/data-normalizer-php)
+[![PHP Version](https://img.shields.io/packagist/dependency-v/sinemacula/data-normalizer-php/php.svg)](https://packagist.org/packages/sinemacula/data-normalizer-php)
 [![Build Status](https://github.com/sinemacula/data-normalizer-php/actions/workflows/tests.yml/badge.svg?branch=master)](https://github.com/sinemacula/data-normalizer-php/actions/workflows/tests.yml)
 [![Quality Gates](https://github.com/sinemacula/data-normalizer-php/actions/workflows/quality-gates.yml/badge.svg?branch=master)](https://github.com/sinemacula/data-normalizer-php/actions/workflows/quality-gates.yml)
 [![Maintainability](https://qlty.sh/gh/sinemacula/projects/data-normalizer-php/maintainability.svg)](https://qlty.sh/gh/sinemacula/projects/data-normalizer-php)
 [![Code Coverage](https://qlty.sh/gh/sinemacula/projects/data-normalizer-php/coverage.svg)](https://qlty.sh/gh/sinemacula/projects/data-normalizer-php)
 [![Total Downloads](https://img.shields.io/packagist/dt/sinemacula/data-normalizer-php.svg)](https://packagist.org/packages/sinemacula/data-normalizer-php)
+[![License](https://img.shields.io/github/license/sinemacula/data-normalizer-php.svg)](LICENSE)
 
 </div>
 
