@@ -32,6 +32,9 @@ test_patterns = [
     "**/spec_*.*",
 ]
 
+[runtimes.enabled]
+php = "8.5"
+
 [[source]]
 name = "default"
 default = true
