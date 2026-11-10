@@ -30,7 +30,7 @@ class Email implements NormalizerInterface
     #[\Override]
     public static function normalize(#[\SensitiveParameter] mixed $value, mixed $context = null): ?string
     {
-        $value = Normalizer::clean($value);
+        $value = is_string($value) ? Normalizer::clean($value) : null;
 
         return $value ? self::lowercase(str_replace(' ', '', $value)) : null;
     }

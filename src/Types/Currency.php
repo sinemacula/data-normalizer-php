@@ -28,7 +28,7 @@ class Currency implements NormalizerInterface
     #[\Override]
     public static function normalize(mixed $value, mixed $context = null): ?string
     {
-        $value = Normalizer::clean($value);
+        $value = is_string($value) ? Normalizer::clean($value) : null;
 
         if (!$value) {
             return null;
