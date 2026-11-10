@@ -140,7 +140,7 @@ class Date implements NormalizerInterface
         }
 
         $date  = self::parseUsingNativeParser($value);
-        $parts = $date !== null ? array_map(intval(...), explode('-', $date->format('Y-n-j'))) : null;
+        $parts = $date !== null ? array_map(intval(...), [$date->format('Y'), $date->format('n'), $date->format('j')]) : null;
 
         return $parts === [$parsed['year'], $parsed['month'], $parsed['day']] ? $date : null;
     }
