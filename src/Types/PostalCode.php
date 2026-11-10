@@ -30,13 +30,13 @@ class PostalCode implements NormalizerInterface
     #[\Override]
     public static function normalize(#[\SensitiveParameter] mixed $value, mixed $context = null): ?string
     {
-        $value = Normalizer::clean($value);
+        $value = is_string($value) ? Normalizer::clean($value) : null;
 
         if ($value === null) {
             return null;
         }
 
-        $country = Normalizer::country($context);
+        $country = is_string($context) ? Normalizer::country($context) : null;
 
         return $country === null ? strtoupper($value) : self::formatForCountry($country, $value);
     }

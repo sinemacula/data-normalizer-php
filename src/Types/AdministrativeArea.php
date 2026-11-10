@@ -34,7 +34,7 @@ class AdministrativeArea implements NormalizerInterface
     #[\Override]
     public static function normalize(#[\SensitiveParameter] mixed $value, mixed $context = null): ?string
     {
-        $value = Normalizer::clean($value);
+        $value = is_string($value) ? Normalizer::clean($value) : null;
 
         if (!$value) {
             return null;
@@ -57,7 +57,7 @@ class AdministrativeArea implements NormalizerInterface
      */
     private static function getCountryFromContext(mixed $context = null): string
     {
-        return Normalizer::country($context) ?? self::DEFAULT_COUNTRY;
+        return (is_string($context) ? Normalizer::country($context) : null) ?? self::DEFAULT_COUNTRY;
     }
 
     /**
