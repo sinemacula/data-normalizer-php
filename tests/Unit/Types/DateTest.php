@@ -76,6 +76,7 @@ final class DateTest extends TypeTestCase
             'mismatched weekday keeps rolling by default'          => ['Tue, 28 Sep 2026', '2026-09-29', null],
             'rolled over datetime is rejected when absolute'       => ['2026-06-31T10:00:00Z', null, ['relative' => false]],
             'month and year resolve to the first when absolute'    => ['September 2026', '2026-09-01', ['relative' => false]],
+            'negative year keeps its sign when absolute only'      => ['-2026-09-28T10:00:00Z', '-2026-09-28', ['relative' => false]],
             'relative true keeps the default behaviour'            => ['2026-09-28 +1 week', '2026-10-05', ['relative' => true]],
             'falsy relative keeps the default behaviour'           => ['2026-09-28 +1 week', '2026-10-05', ['relative' => 0]],
             'other options keep the default behaviour'             => ['2026-09-28 +1 week', '2026-10-05', ['format' => 'Y-m-d']],

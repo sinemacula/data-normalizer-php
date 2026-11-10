@@ -64,7 +64,7 @@ class Date implements NormalizerInterface
     #[\Override]
     public static function normalize(mixed $value, mixed $context = null): ?string
     {
-        $value = Normalizer::clean($value);
+        $value = is_string($value) ? Normalizer::clean($value) : null;
 
         if ($value === null) {
             return null;
@@ -139,9 +139,10 @@ class Date implements NormalizerInterface
             return null;
         }
 
-        $date = self::parseUsingNativeParser($value);
+        $date  = self::parseUsingNativeParser($value);
+        $parts = $date !== null ? array_map(intval(...), [$date->format('Y'), $date->format('n'), $date->format('j')]) : null;
 
-        return $date?->format('Y-m-d') === sprintf('%04d-%02d-%02d', $parsed['year'], $parsed['month'], $parsed['day']) ? $date : null;
+        return $parts === [$parsed['year'], $parsed['month'], $parsed['day']] ? $date : null;
     }
 
     /**
@@ -149,14 +150,14 @@ class Date implements NormalizerInterface
      *
      * A zero offset such as '+0 day' still counts as a relative expression.
      *
-     * @param  array<string, mixed>  $relative
+     * @param  mixed  $relative
      * @return bool
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint
      */
-    private static function isWeekdayOnly(array $relative): bool
+    private static function isWeekdayOnly(mixed $relative): bool
     {
-        if (!array_key_exists('weekday', $relative)) {
+        if (!is_array($relative) || !array_key_exists('weekday', $relative)) {
             return false;
         }
 
