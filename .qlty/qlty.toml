@@ -16,6 +16,7 @@ exclude_patterns = [
     "**/dist/**",
     "**/node_modules/**",
     "**/vendor/**",
+    ".claude/**",
     ".qlty/configs/**",
     ".sinemacula/**",
 ]
@@ -31,9 +32,6 @@ test_patterns = [
     "**/test_*.*",
     "**/spec_*.*",
 ]
-
-[runtimes.enabled]
-php = "8.5"
 
 [[source]]
 name = "default"
@@ -60,5 +58,4 @@ extra_packages = ["sinemacula/coding-standards@1.30.0"]
 
 [[plugin]]
 name = "phpstan"
-version = "2.2.16"
 package_file = "composer.json"
