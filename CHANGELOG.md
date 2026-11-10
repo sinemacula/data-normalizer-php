@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres
 to [Semantic Versioning](https://semver.org/).
 
+## [1.1.1](https://github.com/sinemacula/data-normalizer-php/compare/v1.1.0...v1.1.1) (2026-11-10)
+
+
+### Bug Fixes
+
+* clear the qlty findings and drop configuration the shared source provides ([#70](https://github.com/sinemacula/data-normalizer-php/issues/70)) ([1e7dfbc](https://github.com/sinemacula/data-normalizer-php/commit/1e7dfbc2d2e67f4b3c565b8d825ed7de02eaeba1))
+
 ## [1.1.0](https://github.com/sinemacula/data-normalizer-php/compare/v1.0.0...v1.1.0) (2026-09-29)
 
 
