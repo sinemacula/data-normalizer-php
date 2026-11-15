@@ -52,6 +52,7 @@ A few rules hold across the surface:
 | `companyName`        | `Normalizer::companyName($value)`                   | Normalizes legal suffixes (`Inc`, `LLC`, `Ltd`, `GmbH`, `SARL`)                                                                                    |
 | `jobTitle`           | `Normalizer::jobTitle($value)`                      | Title-cases titles while preserving acronyms (`CEO`, `IT`, `R&D`) and lowercasing stop words                                                       |
 | `currency`           | `Normalizer::currency($value)`                      | Validates and uppercases to an ISO 4217 currency code                                                                                              |
+| `financialAmount`    | `Normalizer::financialAmount($value)`               | Converts a major-unit amount (`12.34`, `"12.34"`) to integer minor units (`1234`), rounding half away from zero                                    |
 | `ssn`                | `Normalizer::ssn($value)`                           | Strips to digits; preserves already-redacted values such as `***123`                                                                               |
 
 ## Installation
